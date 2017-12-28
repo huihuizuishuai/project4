@@ -1,0 +1,92 @@
+前台登录：
+	1、通过js验证用户名、密码、手机号。
+	2、点击 ‘获取验证码’判断验证码是否正确
+		点击发送验证码--->给手机号发送验证码--->将验证码保存到session作用域
+		false：提示
+		true：可以点击登录
+		timeout：60s后可点击重新发送
+	3、点击登录判断用户名 密码是否正确
+		false：提示用户名密码输入错误
+		true：进入index页面
+
+后台登录：
+	1、获取用户手机号、密码，验证
+	2、登陆成功 获取用户ID传入session
+	会员中心：
+	1、查询会员信息放入request
+	2、页面取值
+	
+	投资记录：
+	
+	订单编号 	--serial_number  varchar2(50) ,-- '流水号',subject_purchase_record
+	标的名称--subject_name  varchar2(500) ,-- '标的名称',subject
+	金额		--amount number,-- '购买金额',subject_purchase_record
+	预期收益		--interest  number, -- '结算利息',subject_purchase_record
+	状态		--ispayment number, --'是否还款',subject_purchase_record
+	购买时间		--create_date  date,subject_purchase_record
+	会员ID --member_id number,subject_purchase_record
+	
+	预约记录：
+	finance_product_subscribe_name  varchar2(32),-- '名称',
+	amount  binary_float,-- '私募购买金额',
+	interest  binary_float,--'私募结算收益',
+	status  number,-- '是否处理(0:签署拍照|1:已签约|2:审核中|3:签署失败)',
+	create_date  date,预约时间
+	fps_comment  varchar2(1000) ,-- '电子签署文档信息',
+	member_id  number,--'会员id',
+	
+	体验金记录：
+		用户信息：----member_account
+					0.bbin_amount  binary_float-- '体验金',
+					member_id number,-- '会员id',
+					10.total_profit  binary_float,-- '累计收益',已获收益
+					
+		体验金购买标的：----subject_bbin_purchase_record
+							2.amount  binary_float ,-- '购买金额',
+							member_id  number,--'会员id',
+							
+		标				----subject：
+							1.subject_name  varchar2(500) ,-- '标的名称',
+							6.status  number(4) ,-- '标的状态',
+							7.period  number ,-- '标的周期',
+							3.refund_way  number, --'还款方式',
+							8.year_rate  decimal(16,4) ,-- '年化率',
+							4.start_date  date ,-- '标的开始日期',
+							9.计算
+							5.end_date  date ,-- '标的结束日期',
+							borrowerid  number, --'借款人id',
+							
+							
+							
+		绑定银行卡：members---用户基本表
+					member_id  number primary key,--'用户id',
+ 					member_name  varchar(32) ,-- '真实姓名',
+ 					member_identity  varchar(18) ,-- '身份',
+ 				member_bankcards
+ 				  	member_id  number ,-- '用户id',
+ 				  	md_type  varchar2(50) ,-- '银行卡类型',
+ 				  	card_no  varchar2(20) ,-- '卡号',
+ 				  	delflag  number,-- '是否删除（0：正常使用，2：被删除）',
+ 				  	cardaddress  varchar2(300) -- '开户银行所在地',
+ 				  
+ 				
+	固收类理财：
+		subject_name  varchar2(500) ,-- '标的名称',
+		year_rate  decimal(16,4) ,-- '年化率',
+		floor_amount  binary_float,-- '起投金额',
+		period  number ,-- '标的周期',
+		bought  number, --'已购人数',
+		
+	标的购买：
+		1.判断是否登录
+		2.起投金额是否大于100
+		3.判断余额是否充足
+		4.判断是否使用体验金、红包
+		5.购买
+			1).生成订单 保存到subject_order_record
+			2).返回 code==0 到订单详情页面
+			3).查询订单详情，点击购买保存信息到subject_purchase_record
+		
+		
+	
+	

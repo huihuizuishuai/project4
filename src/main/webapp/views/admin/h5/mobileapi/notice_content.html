@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+<#include '../../common/base.html'>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
+<meta charset="utf-8">
+<link href="${base}/resources/mobileapi/css/base.css" type="text/css" rel="stylesheet">
+<link href="${base}/resources/mobileapi/css/css.css" type="text/css" rel="stylesheet">
+<title>盈加公告详情</title>
+</head>
+<body>
+<h1 class="conTit">${(notice.title)!!}<span>发布时间：${(notice.createDate?string('yyyy-MM-dd'))!!}</span></h1>
+<div class="content">
+	<p>${(notice.content)!!}</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+@charset "gb2312";
+/* CSS Document */
+/* ===============
+ * 重新定义Html元素
+ * =============== */
+html, body, div, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, pre, form, p, blockquote, fieldset, input { padding: 0; margin: 0;}
+h1, h2, h3, h4, h5, h6, pre, code, address, caption, cite, code, em, strong, table, th, td { font-size: 1em; font-style: normal; font-weight: normal;}
+strong { font-weight: bold;}
+ul, ol { list-style: none outside none;}
+fieldset, img { border: medium none;}
+caption, th {  text-align: left;}
+table { border-collapse: collapse; border-spacing: 0;}
+input, select, textarea, option, button{ border:0 none;font-family: "microsoft yahei", Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;}
+body { color: #333; font-family: "microsoft yahei", Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif; font-size:1.2rem}
+input, select, textarea { font-family: "microsoft yahei", Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;}
+a { outline: medium none; color:#333;}
+a:link, a:visited, a:active { text-decoration: none;}
+i, cite, em { font-style: normal;}
+/* Clearfix,*/
+.clearfix:after{content:"\0020"; height:0; display:block; clear:both;}
+.clearfix{zoom:1}
+.clear{ clear:both; font-size:0}
+.fl{ float:left}
+.fr{ float:right}
+.pdr0{ padding-right:0}
+.mt10{ margin-top:1rem !important}
+.mt15{ margin-top:1.5rem !important}
+.f6-15{ background-color:#f6f6f6; height:1.5rem; width:100%; max-width:750px; margin:0 auto}
+html {font-size:10px}
+.borT{ border-top:1px solid #ddd}
+.ui-page-theme-a a, html .ui-bar-a a, html .ui-body-a a, html body .ui-group-theme-a a{ font-weight:normal}
+.mt0{ margin:0 !important}
+@media screen and (min-width:480px) and (max-width:639px) {
+    html {
+        font-size: 15px
+    }
+}
+@media screen and (min-width:640px) and (max-width:719px) {
+    html {
+        font-size: 20px
+    }
+}
+@media screen and (min-width:720px) and (max-width:749px) {
+    html {
+        font-size: 22.5px
+    }
+}
+@media screen and (min-width:750px){
+    html {
+        font-size: 23.5px
+    }
+}

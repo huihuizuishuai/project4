@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<#include '../common/base.html'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="${base}/resources/sys/ying/iconfont.css">
+<link rel="stylesheet" href="${base}/resources/sys/style/bootstrap.css">
+<link rel="stylesheet" href="${base}/resources/sys/style/style.css">
+<script type="text/javascript" src="${base}/resources/sys/js/jquery.js"></script>
+<link rel="stylesheet" href="${base}/resources/date/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="${base}/resources/date/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="${base}/resources/date/bootstrap-datetimepicker.zh-CN.js"></script>
+<title>财务首页</title>
+</head>
+<body>
+<div class="box-right-main">
+ <h2><span class="glyphicon glyphicon-play" style="margin-right:5px"></span>财务统计</h2>
+  <div class="tablelist">
+  <table class="table" width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+      	<form action="${base}/statistics/financeList" method="post" id="form1">
+        <td class="pad0" width="70">开始时间：</td>
+        <td width="200"><input class="form-control time" name="startDate" type="text" readonly="readonly" value="${(startDate)!!}"></td>
+        <td class="pad0" width="70">结束时间：</td>
+        <td width="200"><input class="form-control time" name="endDate" type="text" readonly="readonly" value="${(endDate)!!}"></td>
+        <td width="200">
+        <button type="submit" class="btn btn-primary btn-sm">查询</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="finan()">重置</button>
+        </td>
+         </form>
+      	<td width="80"><a class="btn btn-primary btn-sm" href="${base}/statistics/financeList/nowMonth">当月</a></td>
+      	<td width="100"><a class="btn btn-primary btn-sm" href="${base}/statistics/financeList/lastMonth">上一个月</a></td>
+      	<td width="100"><a class="btn btn-primary btn-sm" href="${base}/statistics/financeList/lastThreeMonth">最近三个月</a></td>
+      	<td></td>
+      </tr>
+    </table>
+  
+    <div class="row rin">
+    	<div class="col-md-4 inBox">
+        	<div class="in">
+            	<p class="first"><img src="${base}/resources/sys/images/ico1.jpg">${((depositFuiou.amount+depositBeifu.amount)+((gushouAmount.interest)+(awardRegch.amount+awardInvest.amount)))!!}<span>元</span></p>
+                <p class="txt">平台总资产</p>
+                <p class="txt">(户历史充值总额+用户总收益)</p>
+            </div>
+        </div>
+        <div class="col-md-4 inBox">
+        	<div class="in">
+            	<p class="first"><img src="${base}/resources/sys/images/ico2.jpg">${((depositFuiou.amount+depositBeifu.amount)+((gushouAmount.interest)+(awardRegch.amount+awardInvest.amount)))-((gushouAmount.amount)+(memberTradeMobile.amount+memberTradeSinopec.amount+memberTradePuc.amount)+(withdrawFuiou.amount+withdrawBeifu.amount))!!}<span>元</span></p>
+                <p class="txt">平台余额</p>
+                <p class="txt">(总资产-总支出)</p>
+            </div>
+        </div>
+        <div class="col-md-4 inBox">
+        	<div class="in">
+            	<p class="first"><img src="${base}/resources/sys/images/ico2.jpg">${(depositFuiou.amount+depositBeifu.amount)-(withdrawFuiou.amount+withdrawBeifu.amount)!!}<span>元</span></p>
+                <p class="txt">平台总净值/第三方账户总余额</p>
+                <p class="txt">(历史充值-总提现)</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    	<div class="col-md-6 pr15">
+        	<div class="tyTit">
+            	<h3>${(depositFuiou.amount+depositBeifu.amount)!!}<span>元</span></h3>
+            	<h4>用户充值总额<br>(富友充值+贝付充值)</h4>
+            </div>
+            <table style="margin-top:28px" class="table table-bordered listTab" width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <th>账户</th>
+                <th>充值（元）</th>
+                <th>取现（元）</th>
+                <th>余额（元）</th>
+              </tr>
+              <tr>
+                <td>富友</td>
+                <td>${(depositFuiou.amount)!!}</td>
+                <td>${(withdrawFuiou.amount)!!}</td>
+                <td>${(depositFuiou.amount-withdrawFuiou.amount)!!}</td>
+              </tr>
+              <tr>
+                <td>贝付</td>
+                <td>${(depositBeifu.amount)!!}</td>
+                <td>${(withdrawBeifu.amount)!!}</td>
+                <td>${(depositBeifu.amount-withdrawBeifu.amount)!!}</td>
+              </tr>
+              <tr>
+                <td>合计</td>
+                <td>${(depositFuiou.amount+depositBeifu.amount)!!}</td>
+                <td>${(withdrawFuiou.amount+withdrawBeifu.amount)!!}</td>
+                <td>${(depositFuiou.amount-withdrawFuiou.amount)+(depositBeifu.amount-withdrawBeifu.amount)!!}</td>
+              </tr>
+            </table>
+        </div>
+        <div class="col-md-6">
+        	<div class="tyTit">
+            	<h3>${((gushouAmount.interest)+(awardRegch.amount+awardInvest.amount))!!}<span>元</span></h3>
+            	<h4>用户总收益<br>(投资总收益+用户总红包)</h4>
+            </div>
+            <div class="row">
+            	<div class="col-md-6">
+                	<h3 class="h3Tit">1.投资总收益</h3>
+                	<table class="table table-bordered listTab" width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th>项目</th>
+                        <th>金额</th>
+                      </tr>
+                      <tr>
+                        <td>固收理财</td>
+                        <td>${(gushouAmount.interest)!!}</td>
+                      </tr>
+                       <tr>
+                        <td>私募基金</td>
+                        <td>0</td>
+                      </tr>
+                       <tr>
+                        <td>海外配资</td>
+                        <td>0</td>
+                      </tr>
+                       <tr>
+                        <td>合计</td>
+                        <td>${(gushouAmount.interest)!!}</td>
+                      </tr>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                	<h3 class="h3Tit">2.用户总红包</h3>
+                	<table class="table table-bordered listTab" width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <th>项目</th>
+                        <th>金额</th>
+                      </tr>
+                      <tr>
+                        <td>邀请注册红包</td>
+                        <td>${(awardRegch.amount)!!}</td>
+                      </tr>
+                      <tr>
+                        <td>投资奖励红包</td>
+                        <td>${(awardInvest.amount)!!}</td>
+                      </tr>
+                      <tr>
+                        <td>合计</td>
+                        <td>${(awardRegch.amount+awardInvest.amount)!!}</td>
+                      </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tyTit lastTit">
+        <h3>${((gushouAmount.amount)+(memberTradeMobile.amount+memberTradeSinopec.amount+memberTradePuc.amount)+(withdrawFuiou.amount+withdrawBeifu.amount))!!}<span>元</span></h3>
+        <h4>平台总支出<br>(总投资+总消费+总提现)</h4>
+    </div>
+    <div class="row">
+    	<div class="col-md-4">
+        	<h3 class="h3Tit">1.平台总投资</h3>
+            <table class="table table-bordered listTab" width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <th>项目</th>
+                <th>金额</th>
+              </tr>
+              <tr>
+                <td>固收理财</td>
+                <td>${(gushouAmount.amount)!!}</td>
+              </tr>
+               <tr>
+                <td>私募基金</td>
+                <td>0</td>
+              </tr>
+               <tr>
+                <td>海外配资</td>
+                <td>0</td>
+              </tr>
+               <tr>
+                <td>合计</td>
+                <td>${(gushouAmount.amount)!!}</td>
+              </tr>
+            </table>
+        </div>
+        <div class="col-md-4">
+        	<h3 class="h3Tit">2.平台总消费</h3>
+            <table class="table table-bordered listTab" width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <th>项目</th>
+                <th>金额</th>
+              </tr>
+              <tr>
+                <td>手机充值</td>
+                <td>${(memberTradeMobile.amount)!!}</td>
+              </tr>
+              <tr>
+                <td>加油卡充值</td>
+                <td>${(memberTradeSinopec.amount)!!}</td>
+              </tr>
+              <tr>
+                <td>生活缴费</td>
+                <td>${(memberTradePuc.amount)!!}</td>
+              </tr>
+              <tr>
+                <td>合计</td>
+                <td>${(memberTradeMobile.amount+memberTradeSinopec.amount+memberTradePuc.amount)!!}</td>
+              </tr>
+            </table>
+        </div>
+        <div class="col-md-4">
+        	<h3 class="h3Tit">3.平台总体现</h3>
+            <table class="table table-bordered listTab" width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <th>项目</th>
+                <th>金额</th>
+              </tr>
+              <tr>
+                <td>富友账户</td>
+                <td>${(withdrawFuiou.amount)!!}</td>
+              </tr>
+               <tr>
+                <td>贝付账户</td>
+                <td>${(withdrawBeifu.amount)!!}</td>
+              </tr>
+               <tr>
+                <td>合计</td>
+                <td>${(withdrawFuiou.amount+withdrawBeifu.amount)!!}</td>
+              </tr>
+            </table>
+        </div>
+    </div>
+  </div>
+  
+  <!-- 内容结束 --> 
+  
+</div>
+<script type="text/javascript">
+	$('.time').datetimepicker({
+		format : 'yyyy-mm-dd',
+		language: 'zh-CN',
+		minView: 2,
+	    todayBtn: 1
+	}).on('changeDate', function(ev) {
+		$('.time').datetimepicker('hide');
+	});
+	
+	function finan(){
+		$("input[name='startDate']").val("");
+		$("input[name='endDate']").val("");
+	}
+	
+	</script> 
+<!-- 容器结束 -->
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<#include '../common/base.html'>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="${base}/resources/sys/ying/iconfont.css">
+    <link rel="stylesheet" href="${base}/resources/sys/style/bootstrap.css">
+    <link rel="stylesheet" href="${base}/resources/sys/style/style.css">
+
+    <script type="text/javascript" src="${base}/resources/sys/js/jquery.js"></script>
+
+    <link rel="stylesheet" href="${base}/resources/date/bootstrap-datetimepicker.min.css">
+    <script type="text/javascript" src="${base}/resources/date/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="${base}/resources/date/bootstrap-datetimepicker.zh-CN.js"></script>
+
+    <title>后台首页</title>
+</head>
+<body>
+
+<div class="box-right-main">
+    <h2><span class="glyphicon glyphicon-play" style="margin-right:5px"></span>充值管理</h2>
+
+    <div class="tablelist">
+        <form action="${base}/sysmember/rechargeManage" method="post" id="form1">
+            <table class="table tabletop">
+                <tr>
+                    <td style="width:110px;padding-left:30px">订单编号：</td>
+                    <td style="width:180px"><input type="text" class="form-control" name="serialNumber"
+                                                   placeholder="订单编号" value="${(depositRecord.serialNumber)!!}"></td>
+                    <td style="width:110px;padding-left:30px">手机号：</td>
+                    <td style="width:180px"><input type="text" class="form-control" name="mobilePhone" placeholder="手机号"
+                                                   value="${(depositRecord.mobilePhone)!!}"></td>
+                    <td style="width:90px">订单状态：</td>
+                    <td style="width:140px"><select name="status" class="form-control" style="width:135px;height:32px"
+                                                    id="status">
+                        <option value=-1>全部</option>
+                        <option value=0>充值失败</option>
+                        <option value=1>充值成功</option>
+                    </select></td>
+                    <td style="width:110px;padding-left:30px">富友订单：</td>
+                    <td style="width:180px"><input type="text" class="form-control" name="payChannelOrderNo"
+                                                   placeholder="富友订单" value="${(depositRecord.payChannelOrderNo)!!}"></td>
+                    <td style="width:110px;padding-left:30px">订单时间：</td>
+                    <td style="width:180px"><input type="text" class="form-control time" name="createDate"
+                                                   placeholder="订单时间" readonly="readonly"
+                                                   value="${(depositRecord.createDate?string('yyyy-MM-dd'))!!}"></td>
+                    <td class="pull-right" style="padding-right:30px">
+                        <button type="submit" class="btn btn-primary btn-sm">查询</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm"
+                                onclick="$('#form1').find(':input').not(':button, :submit, :reset').val('').removeAttr('checked').removeAttr('selected');">
+                            重置
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <table class="table table-bordered tablebox">
+
+            <tr class="text-center" bgcolor="#f7f7f7">
+                <td>序号</td>
+                <td>订单编号</td>
+                <td>手机号</td>
+                <td>订单金额</td>
+                <td>订单状态</td>
+                <td>充值渠道</td>
+                <td>富友手机充值订单</td>
+                <td>订单时间</td>
+                <td>操作</td>
+            </tr>
+        <#list pageInfo.list as m>
+            <tr class="text-center">
+                <td>${m_index+1}</td>
+                <td>${(m.serialNumber)!!}</td>
+                <td>${(m.mobilePhone)!!}</td>
+                <td>${(m.amount)!!}</td>
+                <td>
+                    <#if m.statusDesc=='充值失败'>
+                        <span style="color: red;">${(m.statusDesc)!!}</span>
+                    <#else>
+                        <span style="color:blue;">${(m.statusDesc)!!}</span>
+                    </#if>
+                </td>
+                <td>${(m.payChannelNameDesc)!!}</td>
+                <td>${(m.payChannelOrderNo)!!}</td>
+                <td>${(m.createDate?string('yyyy-MM-dd HH:mm:ss'))!!}</td>
+                <td>
+                    <#if (m.payChannelName)=='FUIOU'&&(m.payChannelOrderNo)??&&(m.payChannelOrderNo)?length gt 0>
+                        <#if (m.status)==0>
+                            <a class="btn btn-primary btn-sm" href="${base}/sysmember/updateRecharge/${m.serialNumber}">更新订单</a>
+                        <#else>
+                            充值成功
+                        </#if>
+                    <#else>
+                        不能操作
+                    </#if>
+                </td>
+            </tr>
+        </#list>
+        </table>
+    <#include "paginate.html" />
+    <@paginate currentPage=(pageInfo.pageNum)!0 totalPage=(pageInfo.pages)!0 actionUrl="${base}/sysmember/rechargeManage"
+    urlParas="&serialNumber=${(depositRecord.serialNumber)!!}&mobilePhone=${(depositRecord.mobilePhone)!!}&status=${(depositRecord.status)!!}&payChannelOrderNo=${(depositRecord.payChannelOrderNo)!!}&createDate=${(depositRecord.createDate?string('yyyy-MM-dd'))!!}"/>
+
+    </div>
+
+    <!-- 内容结束 -->
+
+</div>
+<!-- 容器结束 -->
+
+<script type="text/javascript">
+    $(function () {
+        $("#status").val("${(depositRecord.status)!!}");
+    });
+    $('.time').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        autoclose: false
+    }).on('changeDate', function (ev) {
+        $('.time').datetimepicker('hide');
+    });
+
+</script>
+</body>
+</html>

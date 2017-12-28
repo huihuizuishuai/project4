@@ -1,0 +1,1126 @@
+--关联账号表（第三方登录信息表）
+create table associated_account(
+associated_account_id number primary key,
+member_id number ,--'会员id',
+associated_account_type varchar2(200),--'账号类型（微信，QQ）'
+associated_account_name varchar2(200), --'账号名称'
+identifying varchar2(200),--'账号标识'
+status number ,
+create_date date,--'添加时间',
+update_date date --'修改时间',
+)
+
+create sequence seq_associated_account;
+
+INSERT INTO associated_account VALUES 
+(seq_associated_account.nextval, '115', '0', 'really', '69DB9045C44081B6C6600FEC54892B44', null, to_date('2016-01-20 17:05:34','yyyy-mm-dd hh24:mi:ss'), to_date('2016-01-20 17:05:34','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO associated_account VALUES 
+(seq_associated_account.nextval, '120', '0', '灼华', 'B539E1D1F9EE45CE4E631F5F7BBB7604', null,  to_date('2016-01-20 17:05:34','yyyy-mm-dd hh24:mi:ss'),  to_date('2016-01-20 17:05:34','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO associated_account VALUES 
+(seq_associated_account.nextval, '121', '0', '灼华', 'B539E1D1F9EE45CE4E631F5F7BBB7604', null,  to_date('2016-01-20 17:05:34','yyyy-mm-dd hh24:mi:ss'), to_date('2016-01-20 17:05:34','yyyy-mm-dd hh24:mi:ss'));
+COMMIT;
+
+--奖励记录表
+CREATE TABLE award_records (
+  award_records_id number primary key,
+  invitingid number,--邀请人id
+  byinvitingid number,--被邀请人id
+  award_records_type number, -- '奖励类型（0：注册奖励，1：投资奖励）',
+  amount binary_float, -- '奖励金额',
+  isAward number, -- '0:未奖励  1：已奖励',
+  addTime date -- '添加时间',
+) 
+
+create sequence seq_award_records;
+INSERT INTO award_records VALUES (seq_award_records.nextval, '45', '111', '0', '8.88', '1', sysdate);
+INSERT INTO award_records VALUES (seq_award_records.nextval, '45', '111', '1', '5.00', '1', sysdate);
+COMMIT;
+
+
+-- 体验金信息
+CREATE TABLE bbin_info (
+  bbin_info_id number primary key,
+  member_id number,-- '会员id',
+  amont binary_float,-- '金额',
+  status number,-- '状态（0：是）',
+  create_date date,
+  update_date date
+)
+
+create sequence seq_bbin_info;
+
+INSERT INTO bbin_info VALUES (seq_bbin_info.nextval, '45', '8888.0000', '0', sysdate,sysdate);
+INSERT INTO bbin_info VALUES(seq_bbin_info.nextval, '111', '8888.0000', '0', sysdate,sysdate);
+INSERT INTO bbin_info VALUES(seq_bbin_info.nextval, '117', '8888.0000', '0', sysdate,sysdate);
+INSERT INTO bbin_info VALUES(seq_bbin_info.nextval, '119', '8888.0000', '0',  sysdate,sysdate);
+INSERT INTO bbin_info VALUES (seq_bbin_info.nextval, '110', '8888.0000', '0',  sysdate,sysdate);
+INSERT INTO bbin_info VALUES  (seq_bbin_info.nextval, '120', '8888.0000', '0',  sysdate,sysdate);
+INSERT INTO bbin_info VALUES  (seq_bbin_info.nextval, '112', '8888.0000', '0',  sysdate,sysdate);
+INSERT INTO bbin_info VALUES (seq_bbin_info.nextval, '121', '8888.0000', '0',  sysdate,sysdate);
+COMMIT;
+
+
+--意见反馈
+CREATE TABLE  feedback  (
+   feedback_id  number primary key,
+   member_id  number,--'会员id',
+   feedback_content  varchar2(1000) ,--'意见反馈内容',
+   create_date  date-- '添加时间',
+) 
+
+create sequence seq_feedback;
+INSERT INTO  feedback  VALUES (seq_feedback.nextval, '45', 'lolluk', sysdate);
+INSERT INTO  feedback  VALUES (seq_feedback.nextval, '58', '不好用',sysdate);
+INSERT INTO  feedback  VALUES (seq_feedback.nextval, '62', '测试内容', sysdate);
+INSERT INTO  feedback  VALUES (seq_feedback.nextval, '61', '123', sysdate);
+INSERT INTO  feedback  VALUES (seq_feedback.nextval, '61', '1111', sysdate);
+INSERT INTO  feedback  VALUES (seq_feedback.nextval, '109', 'ice 具体', sysdate);
+INSERT INTO  feedback  VALUES (seq_feedback.nextval, '109', '健健康康', sysdate);
+INSERT INTO  feedback  VALUES (seq_feedback.nextval, '110', '123', sysdate);
+INSERT INTO  feedback  VALUES (seq_feedback.nextval, '110', '123册', sysdate);
+COMMIT;
+
+
+--'理财类基金产品';
+CREATE TABLE  finance_product_funds  (
+   finance_product_funds_id  number primary key,
+   finance_product_funds_type  varchar2(10) ,-- '产品类型',
+   finance_product_funds_name  varchar2(500),--'名称',
+   status  number,--'状态(0:未发布，1:募集中，2:已结束)',
+   period  number,-- '周期',
+   floor_amount binary_float ,--'起投金额',
+   year_rate  binary_float ,-- '年化率',
+   subscribe_count number,--'预约人数',
+   product_topic CLOB, --'基金专题/关于基金',
+   product_factor  CLOB, -- '产品要素',
+   product_strategy  CLOB, -- '产品策略',
+   product_manager  CLOB, -- '基金经理详细',
+   create_date  date,
+   update_date  date,
+   product_manager_name  varchar2(1000) ,--'管理人名称',
+   product_manager_pic  varchar2(1000) ,-- '管理人图片',
+   product_manager_title  varchar2(1000) ,-- '管理人头衔',
+   product_manager_desc  varchar2(1000) ,-- '产品管理人介绍',
+   invest_points  varchar2(1000) ,--'投资方向',
+   amount  binary_float,-- '募集金额',
+   sold_amount  binary_float,-- '已售金额',
+   buyer_count number ,-- '购买人数',
+   start_date  date,--'开始时间',
+   end_date  date,--'结束时间',
+   finance_product_funds_ratio  varchar2(200) ,--'返佣比例',
+   contract  CLOB,--'私募合同',
+   bank_account  varchar2(1000) -- '银行账户（支行名称|银行账号|户名）',
+
+)
+create sequence seq_finance_product_funds;
+INSERT INTO  finance_product_funds  VALUES 
+    (seq_finance_product_funds.nextval, 'SIMU', '私募标的', '1', '10',
+    '200.00', '15.00', '0', '<div class=\"box\" style=\"display: block;\">213</div>',
+    '<p style=\"text-align: center;\"><span style=\"font-family:微软雅黑, sans-serif\"><span style=\"font-size: 21px;\"><strong>68768</strong></span></span></p>',
+    '<p style=\"text-align: center;\"><span style=\"font-family:微软雅黑, sans-serif\"><span style=\"font-size: 21px;\"><strong>56657</strong></span></span></p>', 
+    '<p style=\"text-align: center;\"><span style=\"font-family:微软雅黑, sans-serif\"><span style=\"font-size: 21px;\"><strong>4645</strong></span></span></p>', 
+    sysdate, sysdate, '张三', 'upload/news/img/20151026/20151026103518727108.jpg', '总裁', '23423', '', '0.00', '0.00', '0', sysdate,
+    sysdate, '12', '<p>私募合同内容123</p>', '招商银行杭州高新支行|1234 5678 1234 123|杭州吉威投资管理有限公司 ');
+commit;
+
+--理财类基金产品预约记录表'
+CREATE TABLE  finance_product_subscribe  (
+   finance_product_subscribe_id  number primary key,
+   finance_product_subscribe_name  varchar2(32),-- '名称',
+   member_id  number,--'会员id',
+   phone  varchar2(13) ,-- '联系电话',
+   product_id  number,-- '理财产品id',
+   addr  varchar2(50) ,-- '所在地区',
+   status  number,-- '是否处理(0:签署拍照|1:已签约|2:审核中|3:签署失败)',
+   fps_comment  varchar2(1000) ,-- '电子签署文档信息',
+   risk_reveal  varchar2(200) ,--'风险揭示书',
+   create_date  date,
+   update_date  date,
+   amount  binary_float,-- '私募购买金额',
+   interest  binary_float,--'私募结算收益',
+   start_date  date,-- '开始时间',
+   end_date  date,-- '结束时间',
+   signed_photos  varchar2(200)-- '签署拍照',
+
+)
+
+create sequence seq_finance_product_subscribe;
+INSERT INTO  finance_product_subscribe  VALUES
+ (seq_finance_product_subscribe.nextval, '马仕俊', '115', '18972851494', '28', '北京-通州', '0', null, null,
+  sysdate, sysdate, null, null, null, null, null);
+INSERT INTO  finance_product_subscribe  VALUES 
+ (seq_finance_product_subscribe.nextval, '尚镜', '45', '18758030932', '28', '北京-房山', '2', null, null,
+  sysdate, sysdate, null, null, null, null, 'upload/app/signedPhotos/20160306/20160306101340315724.jpg');
+INSERT INTO  finance_product_subscribe VALUES
+(seq_finance_product_subscribe.nextval, '杨棋涵', '110', '18120581170', '28', '北京-通州', '2', null, null,
+ sysdate,sysdate, null, null, null, null, 'upload/app/signedPhotos/20160302/20160302140529106986.png');
+ COMMIT;
+
+
+
+CREATE TABLE  fp_subscribe_record  (
+   fpsr_id number primary key,
+   member_id  number,--'会员id',
+   subscribe_id number,-- '私募预约记录id',
+   tech_user_id  varchar2(100) ,-- 'e签宝个人账号',
+   tech_user_seal  varchar2(1000) ,-- 'e签宝个人印章',
+   org_path  varchar2(1000),-- '原签署文档路径',
+   new_path  varchar2(1000) ,--'新签署文档路径',
+   status number,
+   create_date  date,
+   update_date  date,
+   filed  varchar2(100)-- '备用字段',
+) 
+
+
+create sequence seq_fpsr;
+INSERT INTO  fp_subscribe_record  VALUES 
+(seq_fpsr.nextval, '45', '85', 'AC60A0A2F11B4D3F88FD590E2C4F1761', 'ok', 'upload/subject/file/20160105/20160105112924171517.pdf', 'upload/subject/file/20160105/20160105112924171517(Yes).pdf', null,
+ sysdate,sysdate, null); 
+ INSERT INTO  fp_subscribe_record  VALUES 
+ (seq_fpsr.nextval, '45', '88', 'AC60A0A2F11B4D3F88FD590E2C4F1761', 'ok', 'upload/subject/file/20160105/20160105134525412532.pdf', 'upload/subject/file/20160105/20160105134525412532(Yes).pdf', null,
+ sysdate,sysdate, null);
+ 
+COMMIT;
+
+ --'理财师表';
+CREATE TABLE  financial_planner  (
+   financial_planner_id  number primary key,
+   member_id number ,-- '会员id',
+   financial_planner_name  varchar2(100) ,-- '真实姓名',
+   orgname  varchar2(200) ,-- '机构名称',
+   mycard  varchar2(200) ,--'我的名片',
+   address  varchar2(200) ,-- '邮寄地址',
+   status  number,
+   create_date  date ,-- '添加时间',
+   update_date  date-- '修改时间',
+)
+
+create sequence seq_financial_planner;
+INSERT INTO  financial_planner  VALUES (seq_financial_planner.nextval, '110', '123', '123', 'upload/app/financia/20151130/20151130161040830908.png', '123', '1', 
+sysdate,sysdate);
+COMMIT;
+
+--'用户基本表'
+CREATE TABLE  members  (
+   member_id  number primary key,--'用户id',
+   member_name  varchar2(32) ,-- '真实姓名',
+   names  varchar2(32) ,-- '用户名',
+   passwords  varchar2(256) ,-- '密码',
+   salts  varchar2(32) ,-- '密码盐',
+   mobile_Phone  varchar2(32) ,-- '手机号',
+   status  number ,-- '账号状态（正常，锁定，删除）',
+   del_flag number ,-- '删除标志',
+   member_identity  varchar2(18) ,-- '身份',
+   create_date  date ,-- '创建时间',
+   update_date  date ,-- '修改时间',
+   weiBoAccount  varchar2(100) ,-- '微博账号关联',
+   weixinAccount  varchar2(100) ,-- '微信账号关联',
+   headid  number ,-- '头像图片id',
+   invitationCode  varchar2(100) ,-- '邀请码',
+   withdraw_password  varchar2(32) ,-- '提款密码',
+   qqAccount  varchar2(100) ,-- 'QQ账号关联',
+   invitedCode  varchar2(100) ,-- '被邀请码',
+   qqNumber  varchar2(100) -- 'QQ号码',
+
+) 
+
+
+create sequence seq_members;
+INSERT INTO  members  VALUES (seq_members.nextval, '尚镜', '尚镜', '61777f2a924e9d9b2e211f583b392a94', null,
+ '18758030932', '0', '0', '420621199501053332', sysdate,sysdate, null, null, '815', '30833403', '61777f2a924e9d9b2e211f583b392a94', null, '24874735', '');
+INSERT INTO  members  VALUES  (seq_members.nextval, '', '柴高', 'd58911f15b7df4d43a0b27d46d9ad82f', null, '15558101209', '0', '0', '', 
+  sysdate,sysdate, null, null, '803', '6QA4T8', 'd58911f15b7df4d43a0b27d46d9ad82f', null, '', null);
+  
+COMMIT;
+
+
+
+
+
+
+CREATE TABLE  member_account  (
+   member_account_id number primary key,
+   member_id  number ,-- '用户id',
+   useable_balance binary_float  ,-- '可用余额',
+   imuseale_balance  binary_float,-- '冻结余额',
+   total_profit  binary_float,-- '累计收益',
+   create_date  date,
+   update_date  date,
+   bonus_amount  binary_float,--'红包金额',
+   invest_amount  binary_float,-- '投资总额',
+   delflag  number ,
+   bbin_amount  binary_float-- '体验金',
+
+) 
+
+create sequence seq_member_account;
+INSERT INTO  member_account  VALUES (seq_member_account.nextval, '45', '357.3700', '182.0000', '2.9836', sysdate,sysdate, '0.0000', '282.0000', '0', '0.0000');
+INSERT INTO  member_account  VALUES(seq_member_account.nextval, '109', '220.0000', '10.0000', '1.0864', sysdate,sysdate, '20.0000', '2300.0000', '0', '0.0000');
+ 
+COMMIT;
+
+
+
+
+
+
+
+
+
+
+***从这开始
+
+CREATE TABLE  member_bankcards  (
+   member_bankcards_id  number primary key,
+   member_bankcards_type  varchar2(50) ,-- '银行卡类型',
+   member_id  number ,-- '用户id',
+   card_no  varchar2(20) ,-- '卡号',
+   delflag  number ，--是否删除（0：正常使用，2：被删除）',
+   create_date  date,
+   update_date  date,
+   cardaddress  varchar2(300) -- '开户银行所在地',
+)
+create sequence seq_member_bankcards;
+
+
+INSERT INTO  member_bankcards  VALUES (seq_member_bankcards.nextval, 'ZSYH', '45', '6214835712790243', '0',sysdate, sysdate, '浙江-杭州-西湖区-高新支行');
+INSERT INTO  member_bankcards  VALUES (seq_member_bankcards.nextval, 'JSYH', '119', '6236681540004168790', '0', sysdate, sysdate, '浙江-杭州-江干区-杭州民安支行');
+INSERT INTO  member_bankcards  VALUES (seq_member_bankcards.nextval, 'GSYH', '110', '6212261202026203977', '0', sysdate, sysdate, '杭州');
+INSERT INTO  member_bankcards  VALUES (seq_member_bankcards.nextval, 'ZSYH', '120', '6214855710744984', '0', sysdate,sysdate, '浙江-杭州-江干区-西湖支行');
+INSERT INTO  member_bankcards  VALUES (seq_member_bankcards.nextval, 'JSYH', '121', '6217001540009113414', '0',sysdate,sysdate, '浙江-杭州-建德市-大同支行');
+COMMIT;
+
+   
+
+
+--'充值记录表';
+CREATE TABLE  member_deposit_record  (
+   member_deposit_record_id  number primary key,
+   serial_number  varchar2(50) ,-- '流水号',
+   member_id  number, -- '用户id',
+   amount  binary_float, -- '金额',
+   status number,--'状态(0:待付款;1:完成)',
+   pay_channel_name  varchar2(20) ,-- '充值渠道名称',
+   pay_channel_order_no  varchar2(50) ,--'充值渠道订单号',
+   delFlag  number ,
+   create_date  date ,
+   update_date  date
+)
+
+create sequence seq_member_deposit_record;
+
+INSERT INTO  member_deposit_record  VALUES (seq_member_deposit_record.nextval, '201511260217041761', '45', '100.00', '0', 'FUIOU', '15112614160900165074', null, sysdate, sysdate);
+INSERT INTO  member_deposit_record  VALUES (seq_member_deposit_record.nextval, '201511260414204683', '45', '28.00', '0', 'FUIOU', '15112616132600165360', null,sysdate, sysdate);
+INSERT INTO  member_deposit_record  VALUES (seq_member_deposit_record.nextval, '201511270607369897', '45', '12.00', '0', 'FUIOU', '15112718064300167763', null, sysdate, sysdate);
+INSERT INTO  member_deposit_record  VALUES (seq_member_deposit_record.nextval, '201511290946254982', '45', '500.00', '1', 'FUIOU', '15112909452800171312', null,sysdate, sysdate);
+INSERT INTO  member_deposit_record  VALUES (seq_member_deposit_record.nextval, '201511300839172998', '110', '2.00', '0', 'FUIOU', '15113008382100173004', null, sysdate, sysdate);
+INSERT INTO  member_deposit_record  VALUES (seq_member_deposit_record.nextval, '201511300402027644', '110', '2.00', '0', 'FUIOU', '15113016010600174247', null, sysdate, sysdate);
+INSERT INTO  member_deposit_record  VALUES (seq_member_deposit_record.nextval, '201511300402257237', '110', '20.00', '1', 'FUIOU', '15113016013000174248', null,sysdate, sysdate);
+INSERT INTO  member_deposit_record  VALUES (seq_member_deposit_record.nextval, '201512081149499099', '111', '100.00', '0', 'FUIOU', '15120811485900195104', null, sysdate, sysdate);
+COMMIT;
+
+   
+
+
+
+
+CREATE TABLE  member_profit_record  (
+    mpr_id  number primary key,
+   serial_number  varchar2(50) ,-- '流水号',
+   mpr_type  number,
+   amount  binary_float ,-- '金额',
+   member_id number ,-- '用户id',
+   delflag  number ,
+   create_date  date ,
+   update_date  date ,
+   mpr_comment varchar2(100), -- '备注',
+   purchase_id  number,--T '标的id',
+   profit_year number, -- '计息年',
+   profit_month  number,-- '计息月',
+   profit_day  number-- '计息日',
+) 
+
+create sequence sql_member_profit_record;
+INSERT INTO  member_profit_record  VALUES  (sql_member_profit_record.nextval, 'TZSY201601150600004152', null, '0.0192', '45', null, sysdate, sysdate, '有缘固收类1收益', '149', '2016', '1', '15');
+INSERT INTO  member_profit_record  VALUES  (sql_member_profit_record.nextval, 'TZSY201601160600002303', null, '0.0192', '45', null,sysdate, sysdate, '有缘固收类1收益', '149', '2016', '1', '16');
+INSERT INTO  member_profit_record  VALUES  (sql_member_profit_record.nextval, 'TZSY201601170600024082', null, '0.0192', '45', null, sysdate, sysdate, '有缘固收类1收益', '149', '2016', '1', '17');
+INSERT INTO  member_profit_record  VALUES  (sql_member_profit_record.nextval, 'TZSY201601180600004284', null, '0.0192', '45', null, sysdate, sysdate, '有缘固收类1收益', '149', '2016', '1', '18');
+INSERT INTO  member_profit_record  VALUES  (sql_member_profit_record.nextval, 'TZSY201601190600003840', null, '0.0192', '45', null, sysdate, sysdate, '有缘固收类1收益', '149', '2016', '1', '19');
+INSERT INTO  member_profit_record  VALUES  (sql_member_profit_record.nextval, 'TZSY201601200600008333', null, '0.0192', '45', null, sysdate, sysdate, '有缘固收类1收益', '149', '2016', '1', '20');
+INSERT INTO  member_profit_record  VALUES  (sql_member_profit_record.nextval, 'TZSY201601161201017751', null, '0.0192', '45', null, sysdate, sysdate, '理财宝一号11收益', '150', '2016', '1', '15');
+INSERT INTO  member_profit_record  VALUES  (sql_member_profit_record.nextval, 'TZSY201603060315599419', null, '0.0192', '45', null,sysdate, sysdate, '理财宝一号11收益', '163', '2016', '3', '6');
+COMMIT;
+
+
+
+
+--缴费家庭
+
+CREATE TABLE  member_puc_charge_home  (
+   mpch_id number  primary key,
+   member_id  number ,--'用户id',
+   name  varchar2(50),--'家庭名称',
+   is_default number,--'是否默认(0:n1:y)',
+   create_date  date,
+   update_date  date
+)
+
+
+--  '缴费项目
+
+CREATE TABLE  member_puc_charge_item  (
+   mpci_id  number primary key,
+   member_id  number,--用户id',
+   home_id  number ,
+   charge_type  varchar2(20),--'缴费类别',
+   charge_institution_id  number ,--'缴费机构id',
+   charge_institution_name  varchar2(50) ,--'缴费机构名称',
+   charge_institution_code  varchar2(60) ,--'缴费机构编码',
+   customer_code  varchar2(50),-- '客户编码',
+   mpci_comment  varchar2(50) --'备注',
+)
+create sequence sql_member_puc_charge_item;
+INSERT INTO  member_puc_charge_item  VALUES (sql_member_puc_charge_item.nextval, '56', '0', 'WATER', '3', '杭州水务有限公司', '浙江省|杭州市|330000|330100|01001|330001211', '14006069', '我家');
+INSERT INTO  member_puc_charge_item  VALUES (sql_member_puc_charge_item.nextval, '58', '0', 'WATER', '3', '杭州水务有限公司', '浙江省|杭州市|330000|330100|01001|330001211', '14006069', '我家');
+INSERT INTO  member_puc_charge_item  VALUES (sql_member_puc_charge_item.nextval, '56', '0', 'WATER', '3', '杭州水务有限公司', '浙江省|杭州市|330000|330100|01001|330001211', '14006069', '我家');
+INSERT INTO  member_puc_charge_item  VALUES (sql_member_puc_charge_item.nextval, '56', '0', 'WATER', '3', '杭州水务有限公司', '浙江省|杭州市|330000|330100|01001|330001211', '共得了咯', '我家');
+INSERT INTO  member_puc_charge_item  VALUES (sql_member_puc_charge_item.nextval, '56', '0', 'WATER', '3', '杭州水务有限公司', '浙江省|杭州市|330000|330100|01001|330001211', '共得了咯', '我家');
+INSERT INTO  member_puc_charge_item  VALUES (sql_member_puc_charge_item.nextval, '55', '0', 'WATER', '3', '杭州水务有限公司', '浙江省|杭州市|330000|330100|01001|330001211', '14006069', '我家');
+INSERT INTO  member_puc_charge_item  VALUES (sql_member_puc_charge_item.nextval, '109', '0', 'WATER', '689', '富阳水费（缴费）', '浙江省|杭州市|330000|330100|01001|330001236', 'fghhh', '我家');
+INSERT INTO  member_puc_charge_item  VALUES (sql_member_puc_charge_item.nextval, '120', '0', 'POWER', '1048', '国网北京市电力公司', '北京|北京市|421498536|电费|北京|国网北京市电力公司|北京', '1233', '我家');
+COMMIT;
+
+
+
+
+--记账
+
+CREATE TABLE  member_tally  (
+    member_tally_id  number  primary key,
+   member_id  number,-- '用户id',
+   type_id  number,-- '消费类型id',
+   type_name  varchar2(32) ,--'消费类型名称',
+   amount  binary_float ,--T '金额',
+   pay_date  date ,
+   create_date  date
+) 
+create sequence sql_member_tally;
+INSERT INTO  member_tally  VALUES  (sql_member_tally.nextval, '56', '0', '燃气费', '111.00',sysdate, sysdate);
+INSERT INTO  member_tally  VALUES  (sql_member_tally.nextval, '56', '0', '有线电视', '1258.00', sysdate, sysdate);
+INSERT INTO  member_tally  VALUES  (sql_member_tally.nextval, '56', '0', '电费', '44.00',sysdate, sysdate);
+INSERT INTO  member_tally  VALUES  (sql_member_tally.nextval, '61', '0', '水费', '258.00',sysdate, sysdate);
+INSERT INTO  member_tally  VALUES  (sql_member_tally.nextval, '61', '0', '水费', '360.00',sysdate, sysdate);
+INSERT INTO  member_tally  VALUES  (sql_member_tally.nextval, '61', '0', '电费', '22.00', sysdate, sysdate);
+INSERT INTO  member_tally  VALUES  (sql_member_tally.nextval, '110', '0', '水费', '222.00', sysdate, sysdate);
+INSERT INTO  member_tally  VALUES  (sql_member_tally.nextval, '120', '0', '电费', '2.00',sysdate, sysdate);
+COMMIT;
+
+
+
+
+
+--交易记录表
+
+CREATE TABLE  member_trade_record  (
+   mtr_id  number primary key,
+   member_id  number,--'用户id',
+   trade_no  varchar2(50),-- '交易号',
+   trade_name  varchar2(100),--'交易名称',
+   counterpart  varchar2(100),-- '交易对方',
+   amount  binary_float ,--'交易金额',
+   trade_type  varchar2(20),--'交易分类',
+   fund_flow  number,--'资金流向(0:流出1:流入)',
+   trade_status  number,--'交易状态',
+   ext_field_1  varchar2(50),-- '扩展1',
+   ext_field_2  varchar2(50),--'扩展2',
+   ext_field_3  varchar2(50),--'扩展3',
+   create_date  date,
+   update_date  date
+)
+create sequence sql_member_trade_record;
+INSERT INTO  member_trade_record  VALUES  (sql_member_trade_record.nextval, '56', '201510221230087370', '手机充值 15558101208', '', '100.00', 'MOBILE_RECHARGE', '0', '0', '15558101208', '', '',sysdate, sysdate);
+INSERT INTO  member_trade_record  VALUES  (sql_member_trade_record.nextval, '45', '201510221236479986', '手机充值 13735433492', '', '100.00', 'MOBILE_RECHARGE', '0', '0', '13735433492', '', '', sysdate, sysdate);
+INSERT INTO  member_trade_record  VALUES  (sql_member_trade_record.nextval, '45', '201510221100489308', '购买：理财宝一号1101; 金额：10.0', '', '10.00', 'FINANCE', '0', '2', '1628', '', '',sysdate, sysdate);
+INSERT INTO  member_trade_record  VALUES  (sql_member_trade_record.nextval, '56', '201510230820539397', '购买：固收类测试; 金额：22.0', '', '22.00', 'FINANCE', '0', '0', '1630', '', '', sysdate, sysdate);
+INSERT INTO  member_trade_record  VALUES  (sql_member_trade_record.nextval, '56', '201510230821176661', '购买：稳盈宝新手标; 金额：11.0', '', '11.00', 'FINANCE', '0', '0', '1629', '', '',sysdate, sysdate);
+INSERT INTO  member_trade_record  VALUES  (sql_member_trade_record.nextval, '56', '201510230944264230', '购买：固收类测试; 金额：22.0', '', '22.00', 'FINANCE', '0', '0', '1630', '', '', sysdate, sysdate);
+COMMIT;
+
+
+
+
+-- 提现记录表 
+CREATE TABLE  member_withdraw_record  (
+   mwr_id number primary key,
+   serial_number  varchar2(50) ,-- '流水号',
+   member_id  number,--'用户id',
+   amount  binary_float ,-- '提现金额',
+   bank_name  varchar2(20) ,-- '银行名称',
+   bank_card  varchar2(50) ,-- '卡号',
+   status  number,-- '提现状态(0:待审核;1:已打款;2打款中;3:打款失败)',
+   delFlag  number,
+   cardaddress  varchar2(200) ,-- '开户银行所在地',
+   channel_name  varchar2(200) ,-- '打款通道（富友,贝付）',
+   create_date  date,
+   update_date  date
+) 
+create sequence sql_member_withdraw_record;
+INSERT INTO  member_withdraw_record  VALUES (sql_member_withdraw_record.nextval, '201511261052299365', '45', '100.00', '招商银行', '6214835712790243', '4', null, '浙江-杭州-西湖区-高新支行', null, sysdate, sysdate);
+INSERT INTO  member_withdraw_record  VALUES (sql_member_withdraw_record.nextval, '201512011121141111', '45', '200.00', '招商银行', '6214835712790243', '1', null, '浙江-杭州-西湖区-高新支行', null,sysdate, sysdate);
+INSERT INTO  member_withdraw_record  VALUES (sql_member_withdraw_record.nextval, '201512011124096942', '45', '300.00', '招商银行', '6214835712790243', '4', null, '浙江-杭州-西湖区-高新支行', null, sysdate, sysdate);
+INSERT INTO  member_withdraw_record  VALUES (sql_member_withdraw_record.nextval, '201512020322168152', '109', '10.00', '建设银行', '6236681540004168790', '0', null, '浙江-杭州-西湖区-高新支行1', null, sysdate, sysdate);
+INSERT INTO  member_withdraw_record  VALUES (sql_member_withdraw_record.nextval, '201512031117365234', '45', '60.15', '招商银行', '6214835712790243', '4', null, '浙江-杭州-西湖区-高新支行', null, sysdate, sysdate);
+INSERT INTO  member_withdraw_record  VALUES (sql_member_withdraw_record.nextval, '201512040508212259', '45', '50.00', '招商银行', '6214835712790243', '1', null, '浙江省-杭州市-西湖区-高新支行', 'BEIFU', sysdate, sysdate);
+INSERT INTO  member_withdraw_record  VALUES (sql_member_withdraw_record.nextval, '201603080313447631', '120', '10.00', '招商银行', '6214855710744984', '0', null, '浙江-杭州-江干区-西湖支行', null, sysdate, sysdate);
+INSERT INTO  member_withdraw_record  VALUES (sql_member_withdraw_record.nextval, '201603080322509072', '120', '30.00', '招商银行', '6214855710744984', '0', null, '浙江-杭州-江干区-西湖支行', null, sysdate, sysdate);
+COMMIT;
+
+  
+
+
+--  新闻列表
+CREATE TABLE  news  (
+   news_id  number primary key,
+   news_typeId  number,-- '所属类别',
+   title  varchar2(200) ,-- '标题',
+   subTitle  varchar2(200) ,-- '副标题',
+   news_sort  number ,-- '排序',
+   info  varchar2(200) ,-- '简介',
+   cPhoto  varchar2(100) ,-- '封面图片',
+   news_link  varchar2(100) ,-- '链接地址',
+   author  varchar2(50) ,-- '作者',
+   news_source  varchar2(200) ,-- '来源',
+   news_label  varchar2(200) ,-- '标签',
+   clickNumber  number ,-- '点击数量',
+   text  CLOB,-- '内容',
+   filelink  varchar2(200) ,-- '附件地址',
+   seoTitle  varchar2(100) ,-- '页面seo标题',
+   seoKey  varchar2(100) ,-- 'seo关键字',
+   seoDes  varchar2(200) ,-- 'seo描述',
+   placTop  number,-- '是否置顶 0：为是  1为否',
+   recommend  number,-- '是否推荐',
+   news_audit  number,-- '是否审核',
+   addId  number,-- '添加人ID',
+   updId  number,-- '修改人ID',
+   updTime  date,-- '修改时间',
+   addTime  date-- '添加时间', 
+) 
+create sequence sql_news;
+INSERT INTO  news  VALUES (sql_news.nextval, '11', '关于我们', '', '1', '关于我们', '', '', '', '', '', null, '<p>　　杭州吉威投资管理有限公司是一家以金融投资为依托，以资本运营为策略，集社区金融、互联网金融产品创新以及资产管理业务为一体的综合性投资管理公司。</p><p><br/></p><p>　　公司致力于社区金融发展，具有资源整合、策略开发、项目运营、资产管理等专业能力，为客户提供全方位的金融服务和资本市场解决方案。</p><p><br/></p><p>　　公司成立于2013年，注册资本2000万元人民币，总部坐落于风景秀丽的杭州市钱江新城CBD迪凯银座，下设行政管理、市场运营、资产管理、风险控制、 财务结算五个部门，力求从各个方面为客户提供最高效的服务。目前，已在上海、宁波等地设有分支管理机构，业务范围覆盖全国。</p><p><br/></p><p>　　杭州吉威投资管理有限公司的长期战略目标，是顺应中国财富总量高速增长、经济结构和经济布局战略性调整、各类私人和机构客户对财富管理产品和服务的需求不断提 升的大趋势，在利用盈+投资的品牌、产品、研究、人才和资金优势的基础上，创建国内一流、国际知名的中国财富管理服务机构，打造业内领先的综合资产管理服务平台。</p><p><br/></p><p>　　着眼于未来，公司以打造“中国金融衍生品投资服务第一品牌”为发展愿景，以“雄踞华东之巅，深耕中国大地”为发展战略，致力于为广大投资爱好者提供全方位的投融资服务，努力成为客户身边最贴心的金融服务管家，为中国资本市场的发展作出更大的贡献。</p><p><br/></p><p>　　盈+品牌，给财富做加法！盈+投资提供的投资业务主要是为客户提供证券、商品期货、金融期货投融资专业服务，凭借丰富的投资经验、充足的资金实力与广泛的操盘手资源优势，专注于提供更加深度、创新、专业、全面的投资服务。</p><p><br/></p><p><strong>公司地址</strong></p><p><strong>地址：</strong>杭州市江干区钱江新城迪凯银座19F 邮编：310000</p><p><br/></p><p><strong>客服电话</strong></p><p>如果您在使用盈+金融的过程中有任何疑问，请与客服人员联系。</p><p><strong>客服电话：</strong>4000-999-158</p><p><br/></p>', '', '', '', '', null, null, null, null, null, sysdate, sysdate);
+INSERT INTO  news  VALUES (sql_news.nextval, '12', '何菲', '', '1', '123456', 'upload/news/img/20151010/20151010145321118525.png', '', '', '', '', null, '', '', '', '', '', null, null, null, null, null, sysdate, sysdate);
+INSERT INTO  news  VALUES (sql_news.nextval, '12', '小明', '', '2', '18758030932', 'upload/news/img/20151010/20151010152308896609.jpg', '', '', '', '', null, '', '', '', '', '', null, null, null, null, null, sysdate, sysdate);
+INSERT INTO  news  VALUES (sql_news.nextval, '12', '叶良辰', '', '3', '250250', 'upload/news/img/20151010/20151010152258141410.jpg', '', '', '', '', null, '', '', '', '', '', null, null, null, null, null,sysdate, sysdate);
+INSERT INTO  news  VALUES (sql_news.nextval, '3', '什么是“平仓、持仓、市场总持仓量”', '', '1', '', '', '', '', '', '', null, '<div class=\"first point\" style=\"box-sizing: border-box; margin: 20px 0px 0px; padding: 0px; list-style: none; color: rgb(145, 119, 57); font-family: 微软雅黑, Arial, YaHei, tahoma, &#39;Hiragino Sans GB&#39;, 宋体; white-space: normal;\">什么是“平仓、持仓、市场总持仓量”</div><div class=\"desc\" style=\"box-sizing: border-box; margin: 0px 0px 20px; padding: 0px; list-style: none; line-height: 25px; color: rgb(102, 102, 102); font-family: 微软雅黑, Arial, YaHei, tahoma, &#39;Hiragino Sans GB&#39;, 宋体; font-size: 14px; white-space: normal;\"><h4 style=\"box-sizing: border-box; margin: 10px 0px; padding: 0px; list-style: none; font-family: inherit; font-weight: 500; line-height: 1.1; color: inherit; font-size: 18px;\">平 仓</h4>平仓是指期货投资者买入或者卖出与其所持股指期货合约的品种、数量及交割月份相同但交易方向相反的股指期货合约，以了结股指期货交易的行为。<br style=\"box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;\"/><br style=\"box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;\"/>期货交易中的平仓相当于股票交易中的卖出。由于期货交易具有双向交易机制，与开仓相对应，平仓也有买入平仓(对应于卖出开仓)和卖出平仓(对应于买入开仓)两种类型。<h4 style=\"box-sizing: border-box; margin: 10px 0px; padding: 0px; list-style: none; font-family: inherit; font-weight: 500; line-height: 1.1; color: inherit; font-size: 18px;\">持 仓</h4>股指期货投资者在开仓之后尚没有平仓的合约，叫做未平仓合约，也叫持仓。开仓之后股指期货投资者有两种方式了结股指期货合约：或者提前择机平仓，或者持有至最后交易日进行现金交割。<br style=\"box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;\"/><br style=\"box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;\"/><h4 style=\"box-sizing: border-box; margin: 10px 0px; padding: 0px; list-style: none; font-family: inherit; font-weight: 500; line-height: 1.1; color: inherit; font-size: 18px;\">换手交易</h4>换手交易有“多头换手”和“空头换手”之分，当原来持有多头的投资者卖出平仓，但新的多头又开仓买进时称为“多头换手”；“空头换手”是指原来持有空头的投资者在买进平仓，新的空头又开仓卖出。<br style=\"box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;\"/><br style=\"box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;\"/><h4 style=\"box-sizing: border-box; margin: 10px 0px; padding: 0px; list-style: none; font-family: inherit; font-weight: 500; line-height: 1.1; color: inherit; font-size: 18px;\">市场总持仓量</h4>“市场总持仓量”的含义是市场上所有投资者(包括多头和空头)在该期货合约上总的“未平仓合约”数量。投资者在交易时不断开仓、平仓合市场总持仓量也因此在不断变化。股指期货市场的总持仓量是按单边计算的，这与目前商品期货市场双边计算不同。例如，在交易某一个合约时，一个投资者买入1张合约并持有，另一个投资者卖出1张合约并持有，股指期货市场总持仓量显示为1张合约，而商品期货市场总持仓量显示为2张合约。市场总持仓量是机构投资者入市的重要参考指标。</div><p><br/></p>', '', '', '', '', null, null, null, null, null, sysdate, sysdate);
+INSERT INTO  news  VALUES (sql_news.nextval, '3', '股指期货交易中“开仓、多头、空头”的概念', '', '2', '', '', '', '', '', '', null, '<div class=\"point\" style=\"box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; color: rgb(145, 119, 57); font-family: 微软雅黑, Arial, YaHei, tahoma, &#39;Hiragino Sans GB&#39;, 宋体; white-space: normal;\">股指期货交易中“开仓、多头、空头”的概念</div><div class=\"desc\" style=\"box-sizing: border-box; margin: 0px 0px 20px; padding: 0px; list-style: none; line-height: 25px; color: rgb(102, 102, 102); font-family: 微软雅黑, Arial, YaHei, tahoma, &#39;Hiragino Sans GB&#39;, 宋体; font-size: 14px; white-space: normal;\">(1)开仓。开仓是指投资者新买入或新卖出一定数量的股指期货合约。投资者可以在合约到期前选择提前平仓；如果持有合约至最后交易日，就必须通过现金交割来了结这笔期货交易。<br style=\"box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;\"/><br style=\"box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;\"/>期货交易中的开仓相当于股票交易中的买入。由于期货交易具有双向交易机制，因此有买入开仓和卖出开仓两种类型。<br style=\"box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;\"/><br style=\"box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;\"/>(2)多头、空头。在股指期货交易中，投资者买入股指期货合约后所持有的持仓叫多头持仓，简称多头；卖出股指期货合约后所持有的持仓叫空头持仓，简称空头。持有多头的投资者认为股指期货合约价格将上涨，所以选择买入；相反，持有空头的投资者认为股指期货合约价格将下跌，所以选择卖出。<br style=\"box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;\"/><br style=\"box-sizing: border-box; margin: 0px; padding: 0px; list-style: none;\"/>比如，某投资者在2009年12月1日开仓买进0912沪深300股指期货10手(张)，成交价为3300点，这时，他就有了10手多头持仓。到12月4日，该投资者看到股指期货价格上涨了，于是以3350点的价格卖出平仓6手0912沪深300股指期货合约，成交后，该投资者的实际持仓就只有4手多头持仓了。 需要提醒的是，投资者下达买卖指令时一定要注明是开仓还是平仓。如果12月4日该投资者在下单时报的是卖出开仓6手，则成交后，该投资者的实际持仓就不是4手多头持仓，而是10手多头持仓加上6手空头持仓了。</div><p><br/></p>', '', '', '', '', null, null, null, null, null, sysdate, sysdate);
+INSERT INTO  news  VALUES (sql_news.nextval, '3', '全球股指期货市场的发展历程是怎样的', '', '3', '', '', '', '', '', '', null, '<div class=\"point\" style=\"box-sizing: border-box; margin: 0px; padding: 0px; list-style: none; color: rgb(145, 119, 57); font-family: 微软雅黑, Arial, YaHei, tahoma, &#39;Hiragino Sans GB&#39;, 宋体; white-space: normal;\">全球股指期货市场的发展历程是怎样的</div><div class=\"desc\" style=\"box-sizing: border-box; margin: 0px 0px 20px; padding: 0px; list-style: none; line-height: 25px; color: rgb(102, 102, 102); font-family: 微软雅黑, Arial, YaHei, tahoma, &#39;Hiragino Sans GB&#39;, 宋体; font-size: 14px; white-space: normal;\"><p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; padding: 0px; list-style: none;\">从发展历程看，股指期货是应股票市场的避险需求而发展起来的。20世纪70年代，西方各国普遍出现经济滞胀，经济增长缓慢，物价飞涨，政治局势动荡，股票市场也经历了二战后最严重的一次危机，道琼斯指数的跌幅在1973-1974年的股市下跌中超过了50%，人们开始意识到在股市下跌面前没有恰当的避险工具可供利用。</p><p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; padding: 0px; list-style: none;\">1982年2月24日，美国堪萨斯市期货交易所推出了第一份股指期货合约——价值线综合平均指数(The Value Line Index)合约。股指期货一经推出就受到了市场的广泛关注，价值线综合平均指数期货推出的当年就成交了35万张。</p><p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; padding: 0px; list-style: none;\">由于股指期货能够为股票市场提供有效的避险工具，顺应了市场管理系统性风险的要求，主要发达国家在20世纪80、90年代陆续推出了股指期货：英国在1984年5月、中国香港在1986年5月、新加坡在1986年9月、日本在1988年9月、法国在1988年11月、德国在1990年9月均相继推出了各自的股指期货品种。90年代中后期以来，新兴市场也加快了股指期货市场建设的步伐：韩国在1996年5月、中国台湾在1998年7月、印度在2000年6月也都相继推出了各自的股指期货品种。时至今日，股指期货已成为现代资本市场不可或缺的重要组成部分。2007年，股指期货/期权交易量达到56.168亿张，占全球场内衍生品交易量的36.5%，占全球场内衍生金融期货/期权交易量的40.31%。相比2000年，股指期货及期权的年交易量增长了7.27倍。在2008年美国次贷危机中，由于市场避险需求的激增，股指期货的成交量也呈现了大幅度的增长，有时甚至达到正常情况下交易量的两倍多。</p><p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; padding: 0px; list-style: none;\">目前，全球已有37个国家和地区推出了股指期货，包括主要发达国家和部分发展中国家，且涵盖了GDP排名前20位的所有其他国家。</p></div><p><br/></p>', '', '', '', '', null, null, null, null, null, sysdate, sysdate);
+INSERT INTO  news  VALUES (sql_news.nextval, '18', 'app', null, '1', 'app', 'upload/news/img/20160120/20160120141801185970.jpg', 'h5/v1/finance/product/detail?type=OVERSEA&productId=1', null, null, null, null, '', null, null, null, null, null, null, null, null, null, sysdate, sysdate);
+INSERT INTO  news  VALUES (sql_news.nextval, '16', '123', null, '1', '123', 'upload/news/img/20160122/20160122221357559670.jpg', null, null, null, null, null, '', 'upload/news/file/20160129/20160129142047425850.mp4', null, null, null, null, null, null, null, null, sysdate, sysdate);
+COMMIT;
+
+
+
+
+
+--  新闻类别列表
+CREATE TABLE  news_type  (
+   news_type_id  number primary key,
+   news_type_name  varchar2(50) ,-- '名称',
+   news_type_link  varchar2(100) ,-- '链接',
+   note  varchar2(200) ,-- '备注',
+   news_type_sort  number,-- '排序',
+   pageType  varchar2(20) ,-- '页面类型',
+   supType  number ,-- '上级类别',
+   info  varchar2(500) ,-- '简介',
+   cPhoto  varchar2(100) ,-- '封面图片',
+   text  CLOB ,-- '内容',
+   seoTitle  varchar2(100) ,-- '页面seo标题',
+   seoKey  varchar2(100) ,-- 'seo关键字',
+   seoDes  varchar2(500) ,-- 'seo描述',
+   addId  number,-- '添加人ID',
+   updId  number,-- '修改人ID',
+   updTime  date ,-- '修改时间',
+   addTime  date--'添加时间',
+ 
+) 
+create sequence sql_news_type;
+INSERT INTO  news_type  VALUES (sql_news_type.nextval, '视频类别', '', '', '2', null, '0', '视频类别', '', '', '', '', '', null, null, sysdate, sysdate);
+INSERT INTO  news_type  VALUES (sql_news_type.nextval, '常见问题', '', '', '3', null, '0', '常见问题', '', '', '', '', '', null, null, sysdate, sysdate);
+INSERT INTO  news_type  VALUES (sql_news_type.nextval, '理财介绍', '', '', '4', null, '0', '理财介绍', '', '', '', '', '', null, null, sysdate, sysdate);
+INSERT INTO  news_type  VALUES (sql_news_type.nextval, '资金安全', '', '', '5', null, '0', '资金安全', '', '', '', '', '', null, null, sysdate, sysdate);
+INSERT INTO  news_type  VALUES (sql_news_type.nextval, '关于盈+理财', '', '', '11', null, '0', '关于盈+理财', '', '', '', '', '', null, null, sysdate, sysdate);
+INSERT INTO  news_type  VALUES (sql_news_type.nextval, '我的客服', '', '', '12', null, '0', '我的客服', '', '', '', '', '', null, null, sysdate, sysdate);
+INSERT INTO  news_type  VALUES (sql_news_type.nextval, 'Banner图片', '', '', '13', null, '0', 'Banner图片', '', '', '', '', '', null, null, sysdate, sysdate);
+INSERT INTO  news_type  VALUES (sql_news_type.nextval, '理财私语', null, null, '17', null, '0', '理财私语', null, null, null, null, null, null, null, sysdate, sysdate);
+INSERT INTO  news_type  VALUES (sql_news_type.nextval, 'APP广告图', null, null, '22', null, '0', 'APP广告图', null, null, null, null, null, null, null, sysdate, sysdate);
+COMMIT;
+
+
+
+
+
+
+
+CREATE TABLE  oversea_config  (
+   oc_id  number primary key,
+   title  varchar2(255) ,-- '标题',
+   oc_content   CLOB,--'内容',
+   sortColum  number ,-- '排序值',
+   child_title  varchar2(128) ,-- '子标题',
+   oc_description  varchar2(255) ,-- '描述',
+   user_type  varchar2(128) ,-- '用户群体',
+   updTime  date,-- '修改时间',
+   addTime  date ,-- '添加时间',
+   oversea_icon  varchar2(200) ,-- '图标',
+   start_date  date ,-- '开始时间',
+   end_date  date ,-- '结束时间',
+   status  number -- '状态',
+
+)
+
+create sequence sql_oversea_config;
+INSERT INTO  oversea_config  VALUES (sql_oversea_config.nextval, '养老保险', '<p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703094033012574.jpg\" title=\"201511051446703094033012574.jpg\" alt=\"ylpic1.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703098716034141.jpg\" title=\"201511051446703098716034141.jpg\" alt=\"ylpic2.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703102540083456.jpg\" title=\"201511051446703102540083456.jpg\" alt=\"ylpic3.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703107530019349.jpg\" title=\"201511051446703107530019349.jpg\" alt=\"ylpic4.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703111938029223.jpg\" title=\"201511051446703111938029223.jpg\" alt=\"ylpic5.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703115734047763.jpg\" title=\"201511051446703115734047763.jpg\" alt=\"ylpic6.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703119638004976.jpg\" title=\"201511051446703119638004976.jpg\" alt=\"ylpic7.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703123787099152.jpg\" title=\"201511051446703123787099152.jpg\" alt=\"ylpic8.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703127646001258.jpg\" title=\"201511051446703127646001258.jpg\" alt=\"ylpic9.jpg\"/></p><p style=\"white-space: normal; text-align: center; padding-bottom: 100px; background-color: rgb(68, 90, 151);\"><a href=\"tel:4000-999-158\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703131266021389.png\" title=\"201511051446703131266021389.png\" alt=\"8.png\"/></a></p><p><br/></p>', '2', '未雨绸缪让未来尽在掌握', '为自己建立一份退休养老基金，享受高品质晚年生活', '国内高净值人群', sysdate, sysdate, 'upload/news/img/20160113/20160113145109628710.png', sysdate, sysdate, '1');
+INSERT INTO  oversea_config  VALUES (sql_oversea_config.nextval, '子女保险', '<p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703340284072186.jpg\" title=\"201511051446703340284072186.jpg\" alt=\"et_01.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703344763060792.jpg\" title=\"201511051446703344763060792.jpg\" alt=\"et_02.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703350012012462.jpg\" title=\"201511051446703350012012462.jpg\" alt=\"et_03.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703355849053178.jpg\" title=\"201511051446703355849053178.jpg\" alt=\"et_04.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703360432053748.jpg\" title=\"201511051446703360432053748.jpg\" alt=\"et_05.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703363852007303.jpg\" title=\"201511051446703363852007303.jpg\" alt=\"et_06.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703367985089621.jpg\" title=\"201511051446703367985089621.jpg\" alt=\"et_07.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703371750046390.jpg\" title=\"201511051446703371750046390.jpg\" alt=\"et_08.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703375233092783.jpg\" title=\"201511051446703375233092783.jpg\" alt=\"et_09.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703378922073236.jpg\" title=\"201511051446703378922073236.jpg\" alt=\"et_10.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703384197058149.jpg\" title=\"201511051446703384197058149.jpg\" alt=\"et_11.jpg\"/></p><p style=\"white-space: normal; text-align: center; padding-bottom: 100px; background-color: rgb(68, 90, 151);\"><a href=\"tel:4000-999-158\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703389542089629.png\" title=\"201511051446703389542089629.png\" alt=\"8.png\"/></a></p><p><br/></p>', '3', '父母之爱则为之计深远', '为孩子建立一份成长关爱基金，让爱能够伴随孩子一生', '国内高净值人群', sysdate, sysdate, 'upload/news/img/20160113/2016011314512148898.png', sysdate, sysdate, '1');
+INSERT INTO  oversea_config  VALUES (sql_oversea_config.nextval, '时尚保险', '<p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703340284072186.jpg\" title=\"201511051446703340284072186.jpg\" alt=\"et_01.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703344763060792.jpg\" title=\"201511051446703344763060792.jpg\" alt=\"et_02.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703350012012462.jpg\" title=\"201511051446703350012012462.jpg\" alt=\"et_03.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703355849053178.jpg\" title=\"201511051446703355849053178.jpg\" alt=\"et_04.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703360432053748.jpg\" title=\"201511051446703360432053748.jpg\" alt=\"et_05.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703363852007303.jpg\" title=\"201511051446703363852007303.jpg\" alt=\"et_06.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703367985089621.jpg\" title=\"201511051446703367985089621.jpg\" alt=\"et_07.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703371750046390.jpg\" title=\"201511051446703371750046390.jpg\" alt=\"et_08.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703375233092783.jpg\" title=\"201511051446703375233092783.jpg\" alt=\"et_09.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703378922073236.jpg\" title=\"201511051446703378922073236.jpg\" alt=\"et_10.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703384197058149.jpg\" title=\"201511051446703384197058149.jpg\" alt=\"et_11.jpg\"/></p><p style=\"white-space: normal; text-align: center; padding-bottom: 100px; background-color: rgb(68, 90, 151);\"><a href=\"tel:4000-999-158\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703389542089629.png\" title=\"201511051446703389542089629.png\" alt=\"8.png\"/></a></p><p><br/></p>', '5', '时尚保险最时尚', '时尚保险最时尚', '青年人', sysdate, sysdate, 'upload/news/img/20160113/20160113145201551421.png', sysdate, sysdate,'1');
+INSERT INTO  oversea_config  VALUES (sql_oversea_config.nextval, '有缘社区', '<p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703340284072186.jpg\" title=\"201511051446703340284072186.jpg\" alt=\"et_01.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703344763060792.jpg\" title=\"201511051446703344763060792.jpg\" alt=\"et_02.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703350012012462.jpg\" title=\"201511051446703350012012462.jpg\" alt=\"et_03.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703355849053178.jpg\" title=\"201511051446703355849053178.jpg\" alt=\"et_04.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703360432053748.jpg\" title=\"201511051446703360432053748.jpg\" alt=\"et_05.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703363852007303.jpg\" title=\"201511051446703363852007303.jpg\" alt=\"et_06.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703367985089621.jpg\" title=\"201511051446703367985089621.jpg\" alt=\"et_07.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703371750046390.jpg\" title=\"201511051446703371750046390.jpg\" alt=\"et_08.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703375233092783.jpg\" title=\"201511051446703375233092783.jpg\" alt=\"et_09.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703378922073236.jpg\" title=\"201511051446703378922073236.jpg\" alt=\"et_10.jpg\"/></p><p style=\"white-space: normal; text-align: center;\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703384197058149.jpg\" title=\"201511051446703384197058149.jpg\" alt=\"et_11.jpg\"/></p><p style=\"white-space: normal; text-align: center; padding-bottom: 100px; background-color: rgb(68, 90, 151);\"><a href=\"tel:4000-999-158\"><img width=\"100%\" src=\"http://pro.ying158.com/upload/ueditor-img/20151105/201511051446703389542089629.png\" title=\"201511051446703389542089629.png\" alt=\"8.png\"/></a></p><p><br/></p>', '5', '有缘社区最有缘', '有缘社区', '有缘社区', sysdate, sysdate, 'upload/news/img/20160115/20160115175237364779.png', sysdate, sysdate,'1');
+COMMIT;
+
+
+
+
+
+
+
+
+
+CREATE TABLE  oversea_config_subscribe  (
+   ocs_id  number primary key,
+   member_id  number,-- '会员id',
+   oversea_id  number ,-- '海外配置id',
+   ocs_name  varchar2(200) ,-- '姓名',
+   phone  varchar2(200) ,-- '电话',
+   addr  varchar2(200) ,-- '地址',
+   status  number,
+   create_date  date,
+   update_date  date
+)
+
+create sequence sql_oversea_config_subscribe;
+INSERT INTO  oversea_config_subscribe  VALUES (sql_oversea_config_subscribe.nextval, '45', '1', '尚镜', '18758030932', '内蒙古-乌海市', '0', sysdate, sysdate);
+INSERT INTO  oversea_config_subscribe  VALUES (sql_oversea_config_subscribe.nextval, '45', '2', '尚镜', '18758030932', '河南省-漯河市', '0',sysdate, sysdate);
+INSERT INTO  oversea_config_subscribe  VALUES (sql_oversea_config_subscribe.nextval, '115', '3', '进口', '15558101208', '北京-通州', '0', sysdate, sysdate);
+INSERT INTO  oversea_config_subscribe  VALUES (sql_oversea_config_subscribe.nextval, '115', '1', '咯归途', '15558101208', '北京-通州', '0', sysdate, sysdate);
+INSERT INTO  oversea_config_subscribe  VALUES (sql_oversea_config_subscribe.nextval, '115', '2', '高档豪华的话', '15558101208', '北京-通州', '0', sysdate, sysdate);
+COMMIT;
+
+
+
+
+
+
+
+
+CREATE TABLE  push_notice  (
+   pn_ID number primary key,
+   title  varchar2(256),
+   pn_content  CLOB ,
+   status  number ,-- '公告状态',
+   create_date  date,
+   update_Date  date
+) 
+create sequence sql_push_notice;
+INSERT INTO  push_notice  VALUES (sql_push_notice.nextval, '盈＋欢迎你', '<p>盈＋欢迎你123</p>', '0', sysdate, sysdate);
+INSERT INTO  push_notice  VALUES (sql_push_notice.nextval, '盈+越来越好', '<p>盈+越来越好123</p>', '0', sysdate, sysdate);
+INSERT INTO  push_notice  VALUES (sql_push_notice.nextval, '测试一下', '<p>测试一下。。。。。</p>', '0', sysdate, sysdate);
+INSERT INTO  push_notice  VALUES (sql_push_notice.nextval, '继续推送', '<p>继续推送........</p>', '0', sysdate, sysdate);
+COMMIT;
+
+
+
+
+--角色权限表
+CREATE TABLE  role_permission_relation  (
+   role_id  number primary key,-- '角色id',
+   permission_ename  varchar2(64),-- '权限名称',
+   create_date  date ,-- '创建时间',
+ 
+)
+create sequence sql_role_permission_relation;
+INSERT INTO  role_permission_relation  VALUES (sql_role_permission_relation.nextval, 'huiyuan_bkgl_manager', sysdate);
+INSERT INTO  role_permission_relation  VALUES (sql_role_permission_relation.nextval, 'huiyuan_czgl_manager', sysdate);
+INSERT INTO  role_permission_relation  VALUES (sql_role_permission_relation.nextval, 'huiyuan_fxgl_manager', sysdate);
+INSERT INTO  role_permission_relation  VALUES (sql_role_permission_relation.nextval, 'huiyuan_lcssh_manager', sysdate);
+INSERT INTO  role_permission_relation  VALUES (sql_role_permission_relation.nextval, 'huiyuan_yqjl_manager', sysdate);
+INSERT INTO  role_permission_relation  VALUES (sql_role_permission_relation.nextval, 'huiyuan_zhgl_manager', sysdate);
+INSERT INTO  role_permission_relation  VALUES (sql_role_permission_relation.nextval, 'licai_gql_p2p_manager', sysdate);
+COMMIT;
+
+
+
+
+-- 短信接口模板
+CREATE TABLE  sms_interface  (
+   si_id  number primary key,
+   si_name  varchar2(20) ,-- '短信模板名称',
+   si_type  number,-- '担心模板类型',
+   address  varchar2(200) ,-- '短信模板地址',
+   si_param  varchar2(200) ,-- '短信模板参数',
+   si_content  varchar2(2000) ,-- '短信模板内容',
+   createdate  date-- '添加时间',
+
+)
+create sequence sql_sms_interface;
+INSERT INTO  sms_interface  VALUES (sql_sms_interface.nextval, '提款通知短信', '1', 'http://222.73.117.158/msg/HttpBatchSendSM', 'account=_pswd=_needstatus=true', '?', sysdate);
+INSERT INTO  sms_interface  VALUES (sql_sms_interface.nextval,'注册验证码短信', '2', 'http://222.73.117.158/msg/HttpBatchSendSM', 'account=_pswd=_needstatus=true', '尊敬的用户，欢迎您注册成为盈加会员，本次校验码：?，有效时间15分钟。', sysdate);
+INSERT INTO  sms_interface  VALUES (sql_sms_interface.nextval, '忘记密码验证码', '3', 'http://222.73.117.158/msg/HttpBatchSendSM', 'account=_pswd=_needstatus=true', '尊敬的用户，本次校验码：?，仅用于账号密码找回，如非本人操作请忽略', sysdate);
+INSERT INTO  sms_interface  VALUES (sql_sms_interface.nextval, '修改手机号验证码', '4', 'http://222.73.117.158/msg/HttpBatchSendSM', 'account=_pswd=_needstatus=true', '尊敬的用户，本次校验码：?，仅用于修改绑定手机号，如非本人操作请忽略', sysdate);
+INSERT INTO  sms_interface  VALUES (sql_sms_interface.nextval, '忘记提现密码验证码', '5', 'http://222.73.117.158/msg/HttpBatchSendSM', 'account=_pswd=_needstatus=true', '尊敬的用户，本次校验码：?，仅用于账号提现密码找回，如非本人操作请忽略', sysdate);
+INSERT INTO  sms_interface  VALUES (sql_sms_interface.nextval, '后台登录验证码', '6', 'http://222.73.117.158/msg/HttpBatchSendSM', 'account=_pswd=_needstatus=true', '尊敬的管理员，本次校验码：?， 有效时间15分钟，如非本人操作请忽略', sysdate);
+COMMIT;
+
+
+
+
+
+-- 短信记录表
+
+CREATE TABLE  sms_record  (
+   sms_record_id   number primary key,
+   sms_recordtype  number,-- '短信类型',
+   phone  varchar2(11) ,-- '手机号码',
+   sms_record_code  varchar2(2000) ,-- '验证码',
+   sms_record_content  varchar2(200) ,-- '短信内容',
+   sms_record_result  varchar2(2000) ,-- '返回结果',
+   status  number ,-- '状态',
+   senddate  date ,-- '发送时间',
+   createdate  date-- '创建时间',
+)  
+create sequence sql_sms_record;
+INSERT INTO  sms_record  VALUES (sql_sms_record.nextval, '6', '18758030932', '4051', '尊敬的管理员，本次校验码：4051， 有效时间15分钟，如非本人操作请忽略', '20151208134311,0\n1001208134311870400\n', '0',  sysdate, null);
+INSERT INTO  sms_record  VALUES (sql_sms_record.nextval, '6', '18758030932', '8947', '尊敬的管理员，本次校验码：8947， 有效时间15分钟，如非本人操作请忽略', '20151208201206,0\n1001208201206993800\n', '0', sysdate, null);
+INSERT INTO  sms_record  VALUES (sql_sms_record.nextval, '6', '18758030932', '6849', '尊敬的管理员，本次校验码：6849， 有效时间15分钟，如非本人操作请忽略', '20151211101934,0\n1001211101934602500\n', '0', sysdate, null);
+INSERT INTO  sms_record  VALUES (sql_sms_record.nextval, '6', '18758030932', '6252', '尊敬的管理员，本次校验码：6252， 有效时间15分钟，如非本人操作请忽略', '20151214150905,0\n1001214150905299200\n', '0', sysdate, null);
+INSERT INTO  sms_record  VALUES (sql_sms_record.nextval, '2', '13588058211', '2522', '尊敬的用户，欢迎您注册成为盈加会员，本次校验码：2522，有效时间15分钟。', '20151214160646,0\n1001214160646357900\n', '0', sysdate, null);
+INSERT INTO  sms_record  VALUES (sql_sms_record.nextval, '6', '18758030932', '3333', '尊敬的管理员，本次校验码：3305， 有效时间15分钟，如非本人操作请忽略', '20151215092559,0\n1001215092559122400\n', '0',sysdate, null);
+INSERT INTO  sms_record  VALUES (sql_sms_record.nextval, '6', '18758030932', '5309', '尊敬的管理员，本次校验码：5309， 有效时间15分钟，如非本人操作请忽略', '20151216101801,0\n1001216101801312400\n', '0', sysdate,null);
+COMMIT;
+
+
+
+
+
+
+
+CREATE TABLE  subject  (
+   subject_id number primary key,
+   serial_number  varchar2(50) ,-- '流水号',
+   serial_no  varchar2(50) ,-- '合同号',
+   subject_name  varchar2(500) ,-- '标的名称',
+   subject_type   CLOB,-- '标的类型',
+   status number,-- '标的状态',
+   floor_amount   binary_float,-- '起投金额',
+   amount binary_float,-- '标的金额',
+   first_id  number ,-- '始标id',
+   parent_id  number ,-- '父标id',
+   period  number,-- '标的周期',
+   purpose  varchar2(500) ,-- '借款目的',
+   raise_start  date ,-- '募集开始',
+   raise_end  date,-- '募集结束',
+   refund_way  number,-- '还款方式',
+   safeGuard_way number ,-- '保障方式',
+   start_date  date,-- '标的开始日期',
+   end_date  date,-- '标的结束日期',
+   year_rate  decimal(16,4) ,-- '年化率',
+    subject_comment   CLOB, --'产品速览',
+   folder_id  number,-- '文件夹Id',
+   delflag  number,-- '是否删除',
+   update_date  date,-- '更新日期',
+   create_date  date,-- '创建日期',
+   borrowername  varchar2(100) ,-- '借款人姓名',
+   borrowerid  number,--'借款人id',
+   bought  number,--'已购人数',
+   projectDetails  CLOB,-- '项目详情',
+   safetyControl  CLOB,--'安全保障',
+   exper_status  number-- '体验金是否可以购买（0：否，1：是）',
+ 
+) 
+create sequence sql_subject;
+INSERT INTO  subject  VALUES (sql_subject.nextval, 'YJ201510210603575782', '1454241524', '理财宝一号11', '0', '1', '100.0000', null, null, null, '5', '购房11', null, null, '1', '0', null, null, '7.0000', '<style>.fl{ float:left}\r\n.fr{ float:right}\r\n.productDetailCnt{\r\n padding:0 40px;\r\n width:800px; margin:0 auto\r\n}\r\n\r\n.productDetailCnt .listItem{\r\n padding:25px 0 30px;\r\n  border-bottom:1px solid #e7e7e7\r\n}\r\n\r\n.productDetailCnt h3{\r\n font-size:20px;\r\n font-weight:400;\r\n  margin-bottom:12px;\r\n line-height:32px\r\n}\r\n\r\n.productDetailCnt .listItem .detailIcon{\r\n display:inline-block;\r\n width:120px;\r\n  height:120px;\r\n background-image:url(http://wacai-file.b0.upaiyun.com/finance/image/web/licai/wm/detailIcon.png);\r\n background-repeat:no-repeat\r\n}\r\n\r\n.productDetailCnt .listItem .fl{\r\n  margin-right:42px;\r\n  margin-left:12px\r\n}\r\n\r\n.productDetailCnt .listItem .fr{\r\n margin-right:12px;\r\n  margin-left:42px\r\n}\r\n\r\n.productDetailCnt .row_1 .detailIcon{\r\n  background-position:0 0\r\n}\r\n\r\n.productDetailCnt .row_2 .detailIcon{\r\n background-position:-120px 0\r\n}\r\n\r\n.productDetailCnt .row_3 .detailIcon{\r\n  background-position:-240px 0\r\n}\r\n\r\n.productDetailCnt .row_4 .detailIcon{\r\n  background-position:-360px 0\r\n}\r\n\r\n.productDetailCnt .row_5 .detailIcon{\r\n  background-position:-480px 0\r\n}\r\n\r\n.productDetailCnt .row_1 .media-body,.productDetailCnt .row_3 .media-body,.productDetailCnt .row_5 .media-body{\r\n  margin-right:12px\r\n}\r\n\r\n.productDetailCnt .row_2 .media-body,.productDetailCnt .row_4 .media-body{\r\n  margin-left:12px\r\n}\r\n\r\n.productDetailCnt .listItem p{\r\n font-size:14px;\r\n color:#999;\r\n line-height:1.5\r\n}\r\n\r\n.productDetailCnt .tipRow,.projectDetailBox .tipRow{\r\n  padding:20px 0\r\n}</style><div class=\"productDetailCnt\"><div class=\"pDetailList\"><div class=\"listItem row_1\"><div class=\"media\"><span class=\"fl\"><em class=\"detailIcon\">&nbsp;</em></span><div class=\"media-body\"><h3>安不安全</h3><p>本产品是中建投信托产品，上市公司宋都股份为该项目项下宋都集团的债务清偿提供连带责任保证责任，宋都股份为A股上市公司，浙江本地较大房地产企业，综合实力较强；</p><p>标的项目为杭州市区内刚需楼盘，销售情况较好；还款来源充足。</p><p>抵押物位于杭州桐庐大奇山郡未售现房，品质较高，抵押率不超过50%，抵押资产真实可靠。</p></div></div></div><div class=\"listItem row_2\"><div class=\"media\"><span class=\"fr\"><em class=\"detailIcon\">&nbsp;</em></span><div class=\"media-body\"><h3>钱去哪了</h3><p>本产品由债权出让人购得中建投信托-安泉19号集合资金信托计划，用于宋都集团下属子公司香悦郡置业负责开发的杭州宋都香悦郡项目的开发建设。</p></div></div></div><div class=\"listItem row_3\"><div class=\"media\"><span class=\"fl\"><em class=\"detailIcon\">&nbsp;</em></span><div class=\"media-body\"><h3>购买准备</h3><p>1. 首次购买需开通理财账户，理财账户可直接进行充值。<img src=\"/winplus/upload/ueditor-img/20151106/201511061446791791861070838.jpg\" title=\"201511061446791791861070838.jpg\" alt=\"1245.jpg\"/></p><p>2. 了解申购所用银行卡支持情况，大额支付需要网银，支持银行数量和支付限额高；快捷支付方便迅速，但支持银行数量有限。</p><p>3. &nbsp;产品限量抢购，提前充值可以大大提升抢购成功率。</p></div></div></div><div class=\"listItem row_4\"><div class=\"media\"><span class=\"fr\"><em class=\"detailIcon\">&nbsp;</em></span><div class=\"media-body\"><h3>怎样赎回</h3><p>产品到期后本金和收益将自动回款至您的理财账户，产品到期前暂不支持提前赎回。</p></div></div></div><div class=\"tipRow f12 g9\">由于理财资金管理运用过程中，可能会面临多种风险因素，在您选择购买本理财产品前，请充分认识风险，谨慎投资</div></div></div>', '504', '0', sysdate,sysdate, '张三', '0', '50', '<p style=\"text-align:center\"><strong><span style=\"font-size:21px;font-family:&#39;微软雅黑&#39;,&#39;sans-serif&#39;\">项目亮点</span></strong></p><p class=\"MsoListParagraph\" style=\"margin-left:48px\"><strong>1、<span style=\"font:9px &#39;Times New Roman&#39;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong>宋都股份为A股上市公司，浙江本地较大房地产企业，综合实力较强；</strong></p><p class=\"MsoListParagraph\" style=\"margin-left:48px;text-indent:0\">截 至2014年末，宋都股份总资产136.85亿元，总负债98.01亿元，资产负债率71.62%。宋都股份2014年全年主营业务收入约23.23亿 元，净利润为0.55亿元，主要来源于房地产销售收入，销售净利率2.35%。2015年3月末，宋都股份主营业务收入约7.37亿元，净利润0.61亿 元。根据预测，其未售存货按照目前的售价估算未来的可售金额可达到140亿元左右，结合其未来工程款投入压力较小的因素，宋都股份整体未来2年内的现金流 对本信托计划有较好的保证能力。</p><p class=\"MsoListParagraph\" style=\"margin-left:48px\"><strong>2、<span style=\"font:9px &#39;Times New Roman&#39;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong>标的项目为杭州市区内刚需楼盘，销售情况较好:</strong></p><p class=\"MsoListParagraph\" style=\"margin-left:48px;text-indent:0\">目前项目工程进度至地上主体工程二分之一左右程度，截至2015年5月末，已推盘去化率（按套数）大约52%。由于属于纯刚需楼盘，项目目前销售情况良好，信托计划第一还款来源较为充足。</p><p class=\"MsoListParagraph\" style=\"margin-left:48px\"><strong>3、<span style=\"font:9px &#39;Times New Roman&#39;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong>抵押物位于杭州桐庐大奇山郡未售现房，品质较高，抵押率不超过50%：</strong></p><p class=\"MsoListParagraph\" style=\"margin-left:48px;text-indent:0\">大奇山郡置业拥有的位于杭州桐庐的大奇山郡项目已竣工未销售的现房资产或其他受托人认可的资产，抵押率不超过50%。</p><p style=\"text-align:center\"><strong><span style=\"font-size:21px;font-family:&#39;微软雅黑&#39;,&#39;sans-serif&#39;\">增信措施</span></strong></p><p><strong>连带责任保证担保</strong></p><p>上市公司宋都股份为本项目项下宋都集团的债务清偿提供连带责任保证责任。</p><p><strong>抵押担保</strong></p><p>大奇山郡置业以其持有的位于杭州桐庐的大奇山郡项目存量房产提供抵押担保或其他受托人认可的资产提供担保，抵押率不超过50%。</p><p><strong>资金归集</strong></p><p class=\"MsoListParagraph\" style=\"margin-left:24px\">1、 销售资金归集</p><p class=\"MsoListParagraph\" style=\"margin-left:24px;text-indent:0\">当 目标项目可售货值&lt;全部信托贷款本金余额*1.5时，如宋都集团未提前一次性偿还全部信托贷款本金及利息，则自目标项目可售货值〈全部信托贷款本金 余额*1.5之日起，目标项目销售回款（销售回款以所有按揭银行发放的按揭贷款流水金额以及宋都集团书面提供的首付款金额统计为准，下同）每满5000万 元时，宋都集团应向归集账户归集资金人民币3500万元。</p><p class=\"MsoListParagraph\" style=\"margin-left:24px\">2、 到期前归集</p><p class=\"MsoListParagraph\" style=\"margin-left:24px;text-indent:0\">各期贷款到期日前20日，归集该期贷款本金余额的5%；各期贷款到期日前10日，归集至该期贷款本金余额的20%；各期贷款到期日，归集至该期贷款本金余额的100%。</p><p><strong>资金监管</strong></p><p>受托人委托商业银行作为本信托计划监管银行，对信托资金使用进行专项监管。</p><p><br/></p>', '<div class=\"box\" style=\"display: block;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   <ul class=\"projectLists list-paddingleft-2\"><li><h3><strong><span style=\"font-size: 18px;\">资金保障</span></strong></h3><p>                   1.交易过程中盈+平台不触碰资金，资金在银行的监管下在银行账户间流动。</p><p>                    2.交易资金由招商银行全面监管。</p><p>                   3.资金流向清晰，资金安全有保障。</p></li><li><h3><strong><span style=\"font-size: 18px;\">本息保障</span></strong></h3><p>1.资金最终投向中建投信托产品，基础资产风险几乎为零，安全有保障。</p><p>                   2.杭州吉威投资承担对该笔债权的回购义务，到期无条件偿付投资人本息。</p><p>                   3.盈+平台对资金真实投向中建投信托产品的过程提供保障。如果因资金没有流向中建投信托产品而发生损失，盈+平台100%全额赔付本息。</p></li><li><h3><strong><span style=\"font-size: 18px;\">盈+平台风控综述</span></strong></h3><p>盈+平台通过与知名企业合作，利用互联网金融的高周转和灵活性，择时提供既能给盈主（平台客户）带来不错的收益，又能满足低资金成本需求的理财产品。</p></li></ul>&nbsp; &nbsp; &nbsp; &nbsp;  </div><p><br/></p>', '0');
+INSERT INTO  subject  VALUES (sql_subject.nextval, 'YJ201511270952439889', '435345', '测试车贷123', '1', '1', '100.0000', '5555.00', null, null, '5', '555', sysdate,sysdate, '1', '0', sysdate,sysdate, '8.0000', '<p>4343434343434343434343</p>', '513', '0', sysdate,sysdate, '555', '0', '0', '<p>4333333333333</p>', '<p>4343434343434343434343434343</p>', '0');
+INSERT INTO  subject  VALUES (sql_subject.nextval, 'YJ201512090934031834', 'YJ123456', '有缘固收类1', '0', '1', '100.0000', null, null, null, '6', '购房22', null, null, '1', '0', null, null, '7.0000', '<p>123</p>', '514', '0', sysdate,sysdate, '张小明', '0', '200', '<p>123</p>', '<p>123</p>', '1');
+COMMIT;
+
+
+
+
+
+
+--体验金购买标的
+////////////////////////////////////////////////////////////////////////////////
+CREATE TABLE  subject_bbin_purchase_record  (
+   sbpr_id number primary key,
+   serial_number  varchar2(50) ,-- '流水号',
+   amount   binary_float,-- '购买金额',
+   deal_ip  varchar2(25) ,-- '交易ip',
+   subject_id  number ,-- '标的Id',
+   member_id  number ,
+   delflag  number,
+   create_date  date,
+   update_date  date,
+   interest  decimal(16,4) ,-- '结算利息',
+   ispayment  number,--'是否还款',
+   pay_interest_times  number,
+   last_profit_day  number--'最后计息日',
+)
+create sequence sql_subject;
+INSERT INTO  subject_bbin_purchase_record  VALUES (sql_subject.nextval, '201601220533418626', '8888.0000', '60.186.187.128', '1638', '110', null, sysdate,sysdate, '10.2273', '0', '0', '0');
+INSERT INTO  subject_bbin_purchase_record  VALUES (sql_subject.nextval, '201601220555153152', '8888.0000', '60.186.187.128', '1638', '119', null, sysdate,sysdate, '10.2273', '0', '0', '0');
+INSERT INTO  subject_bbin_purchase_record  VALUES (sql_subject.nextval, '201601220621005110', '8888.0000', '60.186.187.128', '1638', '45', null,sysdate,sysdate, '10.2273', '0', '0', '0');
+INSERT INTO  subject_bbin_purchase_record  VALUES (sql_subject.nextval, '201603040345074309', '8888.0000', '122.233.64.69', '1638', '110', null, sysdate,sysdate, '10.2273', '0', '0', '0');
+INSERT INTO  subject_bbin_purchase_record  VALUES (sql_subject.nextval, '201603080311315951', '8888.0000', '220.184.151.72', '1638', '121', null, sysdate,sysdate, '10.2273', '0', '0', '0');
+INSERT INTO  subject_bbin_purchase_record  VALUES (sql_subject.nextval, '201603080314148072', '8888.0000', '220.184.151.72', '1638', '120', null, sysdate,sysdate, '10.2273', '0', '0', '0');
+COMMIT;
+
+
+
+
+
+
+CREATE TABLE  subject_field_record  (
+   sfr_id  number primary key,
+   subject_id number,-- '标的Id',
+   field_id  number,-- '字段id',
+   field_value  varchar2(20) ,-- '字段值',
+   delflag  number,-- '删除标记',
+   create_date  date,--'创建日期',
+   update_date  date-- '更新日期',
+
+)
+create sequence sql_subject_field_record;
+INSERT INTO  subject_field_record  VALUES (sql_subject_field_record.nextval, '1628', '0', '332423', null, sysdate,sysdate);
+INSERT INTO  subject_field_record  VALUES (sql_subject_field_record.nextval, '1628', '1', '234', null, sysdate,sysdate);
+INSERT INTO  subject_field_record  VALUES (sql_subject_field_record.nextval, '1628', '2', '23423', null, sysdate,sysdate);
+INSERT INTO  subject_field_record  VALUES (sql_subject_field_record.nextval,'1637', '7', '434343', null,sysdate,sysdate);
+INSERT INTO  subject_field_record  VALUES (sql_subject_field_record.nextval, '1638', '0', '45454', null, sysdate,sysdate);
+INSERT INTO  subject_field_record  VALUES (sql_subject_field_record.nextval, '1638', '1', '545241', null, sysdate,sysdate);
+INSERT INTO  subject_field_record  VALUES (sql_subject_field_record.nextval, '1638', '2', '454545', null,sysdate,sysdate);
+INSERT INTO  subject_field_record  VALUES (sql_subject_field_record.nextval, '1638', '3', '45545', null, sysdate,sysdate);
+COMMIT;
+
+
+
+
+
+
+-- 附件表
+CREATE TABLE  subject_file  (
+   subject_file_id  number primary key,
+   folder_id number,-- '附件主表id',
+   subject_file_path  varchar2(4000) ,-- '文件路径',
+   file_name  varchar2(128) ,-- '文件名',
+   original_name  varchar2(128) ,-- '原文件名',
+   create_date  date,-- '创建时间',
+   update_date  date-- '修改时间',
+
+)
+create sequence sql_subject_file;
+INSERT INTO  subject_file  VALUES (sql_subject_file.nextval, null, 'upload/app/head/20151022', '20151022124428934938.png', null, sysdate,sysdate);
+INSERT INTO  subject_file  VALUES (sql_subject_file.nextval,null, 'upload/app/head/20151022', '20151022135742612441.png', null, sysdate,sysdate);
+INSERT INTO  subject_file  VALUES (sql_subject_file.nextval,null, 'upload/app/head/20151022', '20151022150342293752.png', null, sysdate,sysdate);
+INSERT INTO  subject_file  VALUES (sql_subject_file.nextval,null, 'upload/app/head/20151023', '20151023145533604225.png', null, sysdate,sysdate);
+INSERT INTO  subject_file  VALUES (sql_subject_file.nextval, null, 'upload/app/head/20151030', '20151030114036103786.png', null, sysdate,sysdate);
+INSERT INTO  subject_file  VALUES (sql_subject_file.nextval, null, 'upload/app/head/20151030', '2015103011410051983.png', null, sysdate,sysdate);
+INSERT INTO  subject_file  VALUES (sql_subject_file.nextval, null, 'upload/app/head/20151030', '20151030123353917437.png', null, sysdate,sysdate); 
+COMMIT;
+
+
+
+
+--附件归属表
+
+CREATE TABLE  subject_folder  (
+   subject_folder_id number primary key,-- '主键',
+   create_date  date ,-- '创建时间',
+   update_date  date -- '修改时间',
+  
+) 
+create sequence sql_subject_folder;
+INSERT INTO  subject_folder  VALUES (sql_subject_folder.nextval, sysdate,sysdate);
+INSERT INTO  subject_folder  VALUES (sql_subject_folder.nextval, sysdate,sysdate);
+INSERT INTO  subject_folder  VALUES (sql_subject_folder.nextval, sysdate,sysdate);
+INSERT INTO  subject_folder  VALUES (sql_subject_folder.nextval, sysdate,sysdate);
+COMMIT;
+
+
+
+
+
+--标的订单
+
+CREATE TABLE  subject_order_record  (
+   sor_id  number primary key,
+   serial_number  varchar2(50) ,-- '流水号',
+   deal_type  number ,-- '交易类型',
+   amount  binary_float,-- '订单金额',
+   status  number,-- '订单状态',
+   subject_id  number,-- '标的id',
+   member_id  number,-- '用户id',
+   delflag  number,-- '是否删除',
+   create_date  date,--'创建日期',
+   update_date  date--'更新日期',
+
+) 
+create sequence sql_subject_order_record; 
+INSERT INTO  subject_order_record  VALUES (sql_subject_order_record.nextval, '201512090532364321', '4', '360.5447', '1', '1637', '45', '0', sysdate,sysdate);
+INSERT INTO  subject_order_record  VALUES (sql_subject_order_record.nextval, 'YJ201512251032068513', '2', '100.0000', '1', '1638', '45', '0', sysdate,sysdate);
+COMMIT;
+
+
+
+
+--标的购买'
+
+CREATE TABLE  subject_purchase_record  (
+   spr_id  number primary key,
+   serial_number  varchar2(50) ,-- '流水号',
+   amount  binary_float, -- '购买金额',
+   deal_ip  varchar2(25) ,-- '交易ip',
+   subject_id  number ,-- '标的Id',
+   member_id  number,
+   delflag  number,
+   create_date  date,
+   update_date  date,
+   interest  decimal(16,4) ,-- '结算利息',
+   ispayment  number,--'是否还款',
+   pay_interest_times  number,
+   last_profit_day  number,-- '最后计息日',
+   bonus_info  varchar2(200) -- '红包金额信息（app端实际投资额度+红包额度）',
+) 
+create sequence sql_subject_purchase_record；
+INSERT INTO  subject_purchase_record  VALUES (sql_subject_purchase_recor.nextval, '201601151011138629', '100.0000', '127.0.0.1', '1638', '45', null, sysdate,sysdate, '0.1151', '1', '7', '20160122', '100-0');
+INSERT INTO  subject_purchase_record  VALUES (sql_subject_purchase_recor.nextval, '201601150201517904', '100.0000', '127.0.0.1', '1628', '45', null,  sysdate,sysdate , '0.0959', '1', '6', '20160124', '100-0');
+INSERT INTO  subject_purchase_record  VALUES (sql_subject_purchase_recor.nextval, '201601220347238786', '1233.0000', '60.186.187.128', '1638', '110', null,  sysdate,sysdate, '1.4188', '1', '7', '20160129', '1233.0-0.0');
+INSERT INTO  subject_purchase_record  VALUES (sql_subject_purchase_recor.nextval,'201603011046025588', '200.0000', '0:0:0:0:0:0:0:1', '1628', '45', null,  sysdate,sysdate, '0.1918', '1', '6', '20160304', '200-0');
+INSERT INTO  subject_purchase_record  VALUES (sql_subject_purchase_recor.nextval, '201603011107493456', '456.0000', '0:0:0:0:0:0:0:1', '1628', '45', null, sysdate,sysdate, '0.4373', '1', '6', '20160304', '456-0');
+INSERT INTO  subject_purchase_record  VALUES (sql_subject_purchase_recor.nextval, '201603011114568106', '450.0000', '0:0:0:0:0:0:0:1', '1638', '45', null,  sysdate,sysdate, '0.5178', '1', '7', '20160306', '450-0');
+INSERT INTO  subject_purchase_record  VALUES (sql_subject_purchase_recor.nextval, '201603010314387533', '100.0000', '0:0:0:0:0:0:0:1', '1628', '45', null, sysdate,sysdate, '0.0959', '1', '6', '20160308', '100-0');
+COMMIT;
+
+
+
+
+--商业机构
+CREATE TABLE  sys_biz_institution  (
+   sbi_id  number primary key,
+   province  varchar2(20),-- '省',
+   city  varchar2(20),--'城市',
+   biz_type  varchar2(10) ,-- '机构类别如缴费JF',
+   biz_sub_type  varchar2(10),--'机构子类别如缴费水费WATER',
+   institution_name  varchar2(50),--'机构名称',
+   institution_code  varchar2(50) -- '机构编码',
+) 
+create sequence sql_sys_biz_institution;
+INSERT INTO  sys_biz_institution  VALUES (sql_sys_biz_institution.nextval, '浙江', '杭州', 'JF', 'WATER', '杭州水务有限公司', '浙江省|杭州市|330000|330100|01001|330001211');
+INSERT INTO  sys_biz_institution  VALUES (sql_sys_biz_institution.nextval, '浙江', '杭州', 'JF', 'WATER', '余杭水务有限公司', '浙江省|杭州市|330000|330100|01001|330001230')；
+INSERT INTO  sys_biz_institution  VALUES (sql_sys_biz_institution.nextval, '安徽省', '安庆市', 'JF', 'POWER', '安庆供电（缴费）', '安徽省|安庆市|340000|340800|01002|356000005')；
+INSERT INTO  sys_biz_institution  VALUES (sql_sys_biz_institution.nextval, '安徽省', '安庆市', 'JF', 'POWER', '安庆岳西电费代缴', '安徽省|安庆市|340000|340800|01002|6800090808')；
+INSERT INTO  sys_biz_institution  VALUES (sql_sys_biz_institution.nextval, '安徽省', '安庆市', 'JF', 'POWER', '太湖县电费代缴', '安徽省|安庆市|340000|340800|01002|6800090805')；
+INSERT INTO  sys_biz_institution  VALUES (sql_sys_biz_institution.nextval,'安徽省', '安庆市', 'JF', 'POWER', '望江县电费代缴', '安徽省|安庆市|340000|340800|01002|6800090807')；
+INSERT INTO  sys_biz_institution  VALUES (sql_sys_biz_institution.nextval, '安徽省', '蚌埠市', 'JF', 'POWER', '蚌埠供电（缴费）', '安徽省|蚌埠市|340000|340300|01002|352000005')；
+COMMIT;
+
+
+
+--充值面额管理
+CREATE TABLE  sys_recharge_price_config  (
+   srpc_id   number primary key,
+   srpc_type  varchar2(32),-- '类型',
+   market_price  binary_float, --'金额',
+   sell_price binary_float,--'金额',
+   create_date  date,
+   update_date  date
+)
+create sequence sql_sys_recharge_price_config;
+INSERT INTO  sys_recharge_price_config  VALUES (sql_sys_recharge_price_config.nextval, 'MOBILE', '10.00', '9.95', sysdate,sysdate);
+INSERT INTO  sys_recharge_price_config  VALUES (sql_sys_recharge_price_config.nextval, 'MOBILE', '20.00', '19.75', sysdate,sysdate);
+INSERT INTO  sys_recharge_price_config  VALUES (sql_sys_recharge_price_config.nextval, 'MOBILE', '30.00', '29.70', sysdate,sysdate);
+INSERT INTO  sys_recharge_price_config  VALUES (sql_sys_recharge_price_config.nextval,'MOBILE', '50.00', '49.25', sysdate,sysdate);
+INSERT INTO  sys_recharge_price_config  VALUES (sql_sys_recharge_price_config.nextval, 'MOBILE', '100.00', '98.49', sysdate,sysdate);
+INSERT INTO  sys_recharge_price_config  VALUES (sql_sys_recharge_price_config.nextval, 'MOBILE', '200.00', '197.00',sysdate,sysdate);
+INSERT INTO  sys_recharge_price_config  VALUES (sql_sys_recharge_price_config.nextval, 'MOBILE', '300.00', '295.46',sysdate,sysdate);
+COMMIT;
+
+
+
+
+
+
+
+CREATE TABLE  sys_region  (
+   sys_region_ID  number primary key,
+   gb2260  varchar2(16) ,-- '行政区域国标代码',
+   sys_region_name  varchar2(32) ,-- '行政区名称',
+   region_level  number,-- '行政区级别',
+   parent_id number ,-- '父id',
+   parent_ids  varchar2(256) ,-- '父id列表',
+   parent_gb2260  varchar2(16) ,-- '父编码',
+   dialling_code  varchar2(4) ,-- '电话区号',
+   create_date  date,
+   last_modified  date
+
+)
+create sequence sql_sys_region;
+INSERT INTO  sys_region  VALUES (sql_sys_region.nextval, '330000000000', '浙江省', '1', null, null, null, null, sysdate,sysdate);
+INSERT INTO  sys_region  VALUES (sql_sys_region.nextval, '330100000000', '杭州市', '2', '101', '101', '330000000000', '0571', sysdate,sysdate);
+INSERT INTO  sys_region  VALUES (sql_sys_region.nextval, '330108000000', '滨江区', '3', '102', '101/102', '330100000000', null, sysdate,sysdate);
+INSERT INTO  sys_region  VALUES (sql_sys_region.nextval, '330108003000', '浦沿街道', '4', '103', '101/102/103', '330108000000', null, sysdate,sysdate);
+INSERT INTO  sys_region  VALUES (sql_sys_region.nextval, '330108003009', '彩虹社区', '5', '104', '101/102/103/104', '330108003000', null, sysdate,sysdate);
+INSERT INTO  sys_region  VALUES (sql_sys_region.nextval, '110000000000', '北京市', '1', null, null, null, null, sysdate,sysdate);
+INSERT INTO  sys_region  VALUES (sql_sys_region.nextval, '110100000000', '北京市', '2', '106', '106', '110000000000', '010', sysdate,sysdate);
+INSERT INTO  sys_region  VALUES (sql_sys_region.nextval,'110101000000', '东城区', '3', '107', '106/107', '110100000000', null,sysdate,sysdate);
+COMMIT;
+
+
+
+
+--登录日志
+
+CREATE TABLE  user_log  (
+   user_log_id number primary key,
+   user_id  number ,-- '用户id',
+   action number,-- '动作',
+   create_date  date ,-- '创建时间',
+   update_date  date-- '修改时间',
+  )
+create sequence sql_user_log;
+INSERT INTO  user_log  VALUES (sql_user_log.nextval, '1', '0', '2015-10-21 15:34:29', sysdate,sysdate);
+INSERT INTO  user_log  VALUES (sql_user_log.nextval, '1', '0', '2015-10-21 16:50:55',sysdate,sysdate);
+INSERT INTO  user_log  VALUES (sql_user_log.nextval, '1', '0', '2015-10-21 18:01:23', sysdate,sysdate);
+INSERT INTO  user_log  VALUES (sql_user_log.nextval, '1', '0', '2015-10-21 18:04:11', sysdate,sysdate);
+INSERT INTO  user_log  VALUES (sql_user_log.nextval, '1', '0', '2015-10-21 18:16:40',sysdate,sysdate;
+INSERT INTO  user_log  VALUES (sql_user_log.nextval, '1', '0', '2015-10-21 19:18:54', sysdate,sysdate);
+COMMIT;
+
+
+
+
+
+
+
+CREATE TABLE  user_login_token  (
+   token  varchar2(64),-- '令牌号',
+   user_id   number primary key,-- '用户id',
+   user_name  varchar2(128) ,-- '登录时的用户名，可以是用户名，手机号等',
+   ult_password  varchar2(128) ,--'密码',
+   expire_time  date,--'有效时间',
+   create_date  date,
+   update_date  date
+)
+create sequence sql_user_login_token;
+INSERT INTO  user_login_token  VALUES ('b91263cc-7f8c-4dbb-b9eb-21e2384f6f23', sql_user_login_token.nextval, 'admin', '4dc881d9219c62eb746f0aefd5ec69a8904da713', sysdate,sysdate,sysdate);
+COMMIT;
+
+
+
+
+
+--用户消息表
+CREATE TABLE  user_message  (
+   um_id number primary key,-- '主键',
+   user_id  number ,-- '用户id',
+   title  varchar2(128) ,-- '消息标题',
+   business_type number ,-- '业务类别',
+   owner_id  number ,-- '业务id',
+   um_content  CLOB,--  '消息内容',
+   msg_status number ,-- '状态,(已读未读)',
+   del_flag  number ,-- '删除标志',
+   create_date  date ,-- '创建时间',
+   update_date  date -- 'PRIMARY KEY ( id )
+) 
+create sequence sql_user_message;
+INSERT INTO  user_message  VALUES (sql_user_message.nextval, '45', '盈＋欢迎你', '5', '108', null, '1', null, sysdate,sysdate);
+INSERT INTO  user_message  VALUES (sql_user_message.nextval, '109', '盈＋欢迎你', '5', '108', null, '0', null, sysdate,sysdate);
+INSERT INTO  user_message  VALUES (sql_user_message.nextval, '45', '您的提款申请已处理，请查收您银行卡的账户余额', '2', null, null, '1', null,sysdate,sysdate);
+INSERT INTO  user_message  VALUES (sql_user_message.nextval, '45', '您的提款申请已处理，请查收您银行卡的账户余额', '2', null, null, '1', null, sysdate,sysdate);
+INSERT INTO  user_message  VALUES (sql_user_message.nextval, '111', '你获取一个8.88现金红包', '1', null, null, '0', null, sysdate,sysdate);
+INSERT INTO  user_message  VALUES (sql_user_message.nextval, '45', '你获取一个5现金红包', '1', null, null, '1', null, sysdate,sysdate);
+INSERT INTO  user_message  VALUES (sql_user_message.nextval, '45', '测试一下', '5', '110', null, '1', null, sysdate,sysdate);
+INSERT INTO  user_message  VALUES (sql_user_message.nextval, '109', '测试一下', '5', '110', null, '0', null, sysdate,sysdate);
+INSERT INTO  user_message  VALUES (sql_user_message.nextval, '114', '测试一下', '5', '110', null, '0', null, sysdate,sysdate);
+COMMIT;
+
+
+
+
+--角色表
+
+CREATE TABLE  user_role  (
+   user_role_id number primary key,--'主键',
+   cname  varchar2(32) ,-- '中文名',
+   ename  varchar2(32) ,-- '英文名',
+   available  number ,-- '是否可用',
+   remark  varchar2(256) ,-- '备注',
+   create_date  date,-- '创建时间',
+   update_date  date ,-- '修改时间',
+   user_role_category  varchar2(32) ,
+   source_type  number,
+   source_id  number,
+   del_flag  number
+
+)
+create sequence sql_user_role;
+INSERT INTO  user_role  VALUES (sql_user_role.nextval, '系统管理员', 'sys:admin', '1', '系统超级管理员', sysdate,sysdate, 'SYS', '0', null, null);
+INSERT INTO  user_role  VALUES (sql_user_role.nextval, '普通管理员', 'admin:pu', '1', '普通管理员', sysdate,sysdate, 'SYS', '0', null, null);
+COMMIT;
+
+
+
+
+--用户角色关联表
+CREATE TABLE  user_role_relation  (
+   user_id   number primary key,-- '用户id',
+   role_id   number,--'角色id',
+   create_date  date-- '创建时间',
+) 
+create sequence sql_user_role_relation;
+INSERT INTO  user_role_relation  VALUES (sql_user_role_relation.nextval, '1', sysdate);
+INSERT INTO  user_role_relation  VALUES (sql_user_role_relation.nextval, '1', sysdate);
+INSERT INTO  user_role_relation  VALUES (sql_user_role_relation.nextval, '2', sysdate);
+INSERT INTO  user_role_relation  VALUES (sql_user_role_relation.nextval, '1', sysdate);
+INSERT INTO  user_role_relation  VALUES (sql_user_role_relation.nextval, '1',sysdate);
+COMMIT;
+
+
+
+
+
+--用户基本表
+CREATE TABLE  users  (
+   users_id number primary key,--'用户id',
+   user_name  varchar2(32) ,-- '用户名',
+   users_name  varchar2(32) ,-- '名称',
+   users_password  varchar2(256) ,-- '密码',
+   users_salt  varchar2(32) ,-- '密码盐',
+   mobile_Phone  varchar2(32) ,-- '手机号',
+   status  number ,-- '账号状态（正常，锁定，删除）',
+   del_flag  number ,-- '删除标志',
+   users_identity  number ,-- '身份',
+   create_date  date,-- '创建时间',
+   update_date  date-- '修改时间',
+) 
+
+create sequence sql_users;
+INSERT INTO  users  VALUES (sql_users.nextval, 'admin', null, 'ffba34bb9dcb4a2b7a0396daf481bae199fa77d6', '7Tzs0fAAuevOMNig', '18758030932', '0', null, '0', sysdate,sysdate);
+COMMIT;
+
+
+DROP VIEW IF EXISTS  moneyrecord ;
+CREATE ALGORITHM=UNDEFINED DEFINER= admin @ %  SQL SECURITY DEFINER VIEW  moneyrecord  AS select  winplus . member_deposit_record . serial_number  AS  serial_number , winplus . member_deposit_record . member_id  AS  member_id , winplus . member_deposit_record . amount  AS  amount ,(case when ( winplus . member_deposit_record . status  = 0) then 3 else 1 end) AS  STATUS , winplus . member_deposit_record . create_date  AS  create_date ,1 AS  delFlag  from  member_deposit_record  union select  winplus . member_withdraw_record . serial_number  AS  serial_number , winplus . member_withdraw_record . member_id  AS  member_id , winplus . member_withdraw_record . amount  AS  amount , winplus . member_withdraw_record . status  AS  STATUS , winplus . member_withdraw_record . create_date  AS  create_date ,2 AS  delFlag  from  member_withdraw_record ;
+
+-- ----------------------------
+--  View structure for  user_statistics 
+-- ----------------------------
+DROP VIEW IF EXISTS  user_statistics ;
+CREATE ALGORITHM=UNDEFINED DEFINER= admin @ %  SQL d DEFINER VIEW  user_statistics  AS select  mdr . serial_number  AS  serialNumber ,'充值' AS  type , mdr . amount  AS  amount ,(case when ( mdr . pay_channel_name  = 'FUIOU') then '富友' when ( mdr . pay_channel_name  = 'BEIFU') then '贝付' end) AS  dealway , mdr . create_date  AS  createDate , mdr . member_id  AS  memberId ,(case when ( mdr . status  = 1) then '充值成功' end) AS  status , mdr . pay_channel_order_no  AS  remark  from  member_deposit_record   mdr  where ( mdr . status  = 1) union select  mwr . serial_number  AS  serialNumber ,'提现' AS  type , mwr . amount  AS  amount ,(case when ( mwr . channel_name  = 'FUIOU') then '富友' when ( mwr . channel_name  = 'BEIFU') then '贝付' end) AS  dealway , mwr . create_date  AS  createDate , mwr . member_id  AS  memberId ,(case when ( mwr . status  = 0) then '待审核' when ( mwr . status  = 1) then '提现成功' when ( mwr . status  = 2) then '打款中' when ( mwr . status  = 3) then '打款失败' when ( mwr . status  = 4) then '已解冻' end) AS  status ,concat_ws(',', mwr . bank_name , mwr . bank_card , mwr . cardaddress ) AS  remark  from  member_withdraw_record   mwr  union select  spr . serial_number  AS  serialNumber ,'投资' AS  type , spr . amount  AS  amount ,(select  winplus . subject . name  from  subject  where ( winplus . subject . id  =  spr . subject_id )) AS  dealway , spr . create_date  AS  createDate , spr . member_id  AS  memberId ,(case when ( spr . ispayment  = 0) then '待还款' else '已还款' end) AS  status ,concat_ws(',', spr . interest , spr . bonus_info ) AS  remark  from  subject_purchase_record   spr  union select  mtr . trade_no  AS  serialNumber ,'生活消费' AS  type , mtr . amount  AS  amount ,(case when ( mtr . trade_type  = 'MOBILE_RECHARGE') then '手机充值' when ( mtr . trade_type  = 'SINOPEC_RECHARGE') then '石化充值' when ( mtr . trade_type  = 'PUC_CHARGE') then '生活缴费' end) AS  dealway , mtr . create_date  AS  createDate , mtr . member_id  AS  memberId ,(case when ( mtr . trade_status  = 0) then '等待付款' when ( mtr . trade_status  = 1) then '交易关闭' when ( mtr . trade_status  = 2) then '成功' when ( mtr . trade_status  = 3) then '失败' when ( mtr . trade_status  = 4) then '处理中' else '退款' end) AS  status , mtr . trade_name  AS  remark  from  member_trade_record   mtr  where (( mtr . trade_status  <> 0) and ( mtr . trade_type  in ('MOBILE_RECHARGE','SINOPEC_RECHARGE','PUC_CHARGE'))) union select  ar . id  AS  serialNumber ,'红包返利' AS  type , ar . amount  AS  amount ,'注册奖励' AS  dealway , ar . addTime  AS  createDate , ar . byinvitingid  AS  memberId ,'奖励成功' AS  status ,'注册奖励红包' AS  remark  from  award_records   ar  where ( ar . type  = 0) union select  ar . id  AS  serialNumber ,'红包返利' AS  type , ar . amount  AS  amount ,'投资奖励' AS  dealway , ar . addTime  AS  createDate , ar . invitingid  AS  memberId ,'奖励成功' AS  status ,'投资奖励红包' AS  remark  from  award_records   ar  where ( ar . type  = 1);
+
+SET FOREIGN_KEY_CHECKS = 1;

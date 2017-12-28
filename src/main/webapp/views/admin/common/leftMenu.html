@@ -1,0 +1,64 @@
+<meta charset="UTF-8">
+<div id="main_left">
+   	<a href="javascript:;"><img src="${base}/resources/images/user_img.jpg"/></a>
+
+		<div id="list" class="men">
+			<span class="bj iconfont">&#xe626;</span>&nbsp; <a href="javascript:;">理财产品</a>
+		</div>
+		<ul class="hider" style="display: none;">
+			<li><a href="${base}/sys/userlist" target="myiframe">固收类</a></li>
+			<li><a href="${base}/sys/childAccountlist" target="myiframe">私募类</a></li>
+			<li><a href="${base}/sys/rolelist" target="myiframe">股权类</a></li>
+		</ul>
+		
+		<div id="list" class="men">
+			<span class="bj iconfont">&#xe626;</span>&nbsp; <a href="javascript:;">钱包管理</a>
+		</div>
+		<ul class="hider" style="display: none;">
+			<li><a href="javascript:;" target="myiframe">活动中心</a></li>
+			<li><a href="javascript:;" target="myiframe">手机充值记录</a></li>
+			<li><a href="javascript:;" target="myiframe">生活缴费记录</a></li>
+			<li><a href="javascript:;" target="myiframe">股票开户记录</a></li>
+			<li><a href="javascript:;" target="myiframe">期货开户记录</a></li>
+		</ul>
+		<div id="list" class="men">
+			<span class="bj iconfont">&#xe626;</span>&nbsp; <a href="javascript:;">学院管理</a>
+		</div>
+		<ul class="hider" style="display: none;">
+			<li><a href="#" target="myiframe">资讯管理</a></li>
+            <li><a href="#" target="myiframe">视频管理</a></li>
+		</ul>
+		<div id="list" class="men">
+			<span class="bj iconfont">&#xe626;</span>&nbsp; <a href="javascript:;">会员管理</a>
+		</div>
+		<ul class="hider" style="display: none;">
+			<li><a href="javascript:;" target="myiframe">账单查询</a></li>
+            <li><a href="javascript:;" target="myiframe">绑卡管理</a></li>
+		</ul>
+
+
+		<div id="list" class="men">
+			<span class="bj iconfont">&#xe626;</span>&nbsp; <a href="javascript:;">盈+设置</a>
+		</div>
+		<ul class="hider" style="display: none;">
+			<li><a href="javascript:;">关于赢＋</a></li>
+			<li><a href="javascript:;">帮助中心</a></li>
+			<li><a href="javascript:;">联系我们</a></li>
+			<li><a href="javascript:;">意见反馈</a></li>
+			<li><a href="javascript:;">版本号协议</a></li>
+			<li><a href="javascript:;">APP启动页设置</a></li>
+		</ul>
+
+	<@shiro.hasPermission name="system_manage">
+        <div id="list" class="men"> 
+    	<span class="bj iconfont">&#xe626;</span>&nbsp;<a href="javascript:;">系统管理</a>
+	    </div>
+	    <ul class="hider" style="display: none;">
+	    	<@shiro.hasPermission name="system_accountManage"><li><a href="${base}/sys/userlist" target="myiframe">账号管理</a></li></@shiro.hasPermission>
+	    	<@shiro.hasPermission name="system_childAccount_Set"><li><a href="${base}/sys/childAccountlist" target="myiframe">子帐号管理</a></li></@shiro.hasPermission>
+	    	<@shiro.hasPermission name="system_userRoleManage"><li><a href="${base}/sys/rolelist" target="myiframe">角色管理</a></li></@shiro.hasPermission>
+	    	<@shiro.hasPermission name="system_logManage"><li><a href="${base}/sys/loglist" target="myiframe">日志管理</a></li></@shiro.hasPermission>
+	    	<@shiro.hasPermission name="system_passwordSet"><li><a href="${base}/sys/updatePasswdPage" target="myiframe">密码设置</a></li></@shiro.hasPermission>
+	    </ul>
+   	</@shiro.hasPermission>
+</div>

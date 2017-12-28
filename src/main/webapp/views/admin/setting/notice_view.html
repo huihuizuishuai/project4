@@ -1,0 +1,59 @@
+<#include '../common/base.html'>
+<!DOCTYPE html>
+    <html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="renderer" content="webkit">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      	<link rel="stylesheet" href="${base}/resources/sys/ying/iconfont.css">
+        <link rel="stylesheet" href="${base}/resources/sys/style/bootstrap.css">
+        <link rel="stylesheet" href="${base}/resources/sys/webupload/webuploader.css">
+        <link rel="stylesheet" href="${base}/resources/sys/webupload/demo.css">
+        <link rel="stylesheet" href="${base}/resources/sys/style/style.css">
+        
+        <script type="text/javascript" src="${base }/resources/uploadify/jquery.min.js"></script>
+        <script src="${base }/resources/uploadify/jquery.uploadify.min.js" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="${base }/resources/uploadify/uploadify.css">
+		
+		<script type="text/javascript" charset="utf-8" src="${base}/resources/ueditor1_4_3_1/ueditor.config.js"></script>
+	    <script type="text/javascript" charset="utf-8" src="${base}/resources/ueditor1_4_3_1/ueditor.all.min.js"> </script>
+	    <script type="text/javascript" charset="utf-8" src="${base}/resources/ueditor1_4_3_1/lang/zh-cn/zh-cn.js"></script>
+        <title>后台首页</title>
+    </head>
+    <body>
+
+    <div class="box-right-main">
+        <h2>
+            <span class="glyphicon glyphicon-play" style="margin-right: 5px"></span>查看公告
+        </h2>
+       	<div class="tablelist">
+           <div class="row bdlist">
+               <div class="col-md-6">
+			 		<div class="form-group">
+                    <label class="col-sm-1 control-label">标题<b style="color: red;">*</b>：</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" value="${(notice.title)!!}"  type="text" name="title" id="textfield" readonly="true"/>
+                        <span style="visibility: hidden">验证提示预留位置</span>
+                    </div>
+                	</div>
+    			</div>
+       	 	</div>
+        </div>
+       	<div class="row bdlist">
+            <div class="col-md-12">
+		        <h2>
+		            <span class="glyphicon glyphicon-play" style="margin-right: 5px"></span>内容
+		        </h2>
+		        <div>
+				   <div><textarea name="content" id="editor" style="width: 80%;height: 300px;">${(notice.content)!!}</textarea></div>
+	    			<script type="text/javascript"> var ue = UE.getEditor('editor');</script>
+				</div>
+         	</div>
+        </div>
+        <!-- 内容结束 -->
+    </div>
+   <script src="${base}/resources/dist/js/bootstrapValidator.min.js"></script>
+   <!-- 容器结束 -->
+	</body>
+	</html>

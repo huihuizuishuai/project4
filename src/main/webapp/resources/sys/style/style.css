@@ -1,0 +1,108 @@
+*{margin: 0px;padding: 0px}
+body{background: #f7f7f7}
+.container-layout{padding: 0px;margin: 0px}
+ul{list-style: none}
+.row{margin-right: 0px}
+/*首页*/
+#top{height: 90px;overflow: hidden;background: #1fbba6;}
+#top .top-left{margin-top:20px;margin-left:15px;float: left;height: 990px}
+#top .top-right{float: right;margin-right: 5px;}
+#top .top-right ul{height: 90px}
+#top .top-right .iconfont{font-size: 30px}
+#top .top-right p{margin-bottom: 5px}
+#top .top-right li{float: left;color: #fff;width: 160px;text-align: center;padding:10px 8px 8px 10px;
+background:url("../images/li_bg.jpg") repeat-y scroll 1px 8px;}
+#box{height:100%;}
+#box .box-left{border-right:1px solid #dcdcdc;background: #fff;overflow: auto;width: 240px}
+#box .box-left .nav-stacked li{margin-top: 0px}
+#box .box-left .nav-pills li{border-bottom: 1px solid #dcdcdc;}
+#box .box-left .nav-pills li .iconfont{font-size: 20px;margin-right: 10px;}
+#box .box-left .nav-pills li .titlea{border-radius:0px;color: #333333;padding: 15px 15px;font-size: 16px;padding-left: 40px}
+#box .box-left .nav-pills li .titlea:hover{background: #1fbba6;color: #fff;outline:0;}
+#box .box-left .nav-pills li .titlea:focus{background: #1fbba6;color: #fff;outline:0;}
+#box .box-left .list-group{margin-bottom: 0px;display: none}
+#box .box-left .list-group-item{border-left: none;border-right: none;padding: 8px 0px;padding-left: 28px}
+#box .box-left .list-group-item a{border-radius:0px;color: #333333;padding: 10px 10px;font-size: 14px;padding-left: 42px}
+#box .box-left .list-group-item .bottoma{border-radius:0px;color: #333333;padding: 10px 10px;font-size: 14px;padding-left: 55px}
+#box .box-left .list-group-item a:hover{outline:0;}
+#box .box-left .list-group-item a:focus{outline:0;}
+#box .box-left .list-group-item:first-child{border-top-left-radius: 0px;border-top-right-radius: 0px;border-top: none}
+#box .box-left .list-group-item:last-child{border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;}
+#box .box-right{margin-left: -65px}
+h1{font-size: 16px;margin: 10px 10px}
+h1 small{font-size: 13px;}
+h1 span{font-size: 24px;color: #1fbba6}
+.box-right-topleft{height: 415px;background: #fff;padding: 30px}
+.box-right-topleft h2{font-size: 16px;margin-top:5px;margin-bottom: 10px}
+.box-right-topleft p{font-size: 14px;color: #666666;line-height: 30px}
+.box-right-topleft .datt{margin-top: 30px}
+.box-right-topleft small{font-size: 14px;color: #cccccc;line-height: 30px}
+.box-right-topleft .imglist{margin-top: 30px}
+.box-right-topleft .imglist img{width: 200px;height: 150px;margin-right: 10px}
+.box-right-topright{height: 415px;background: #fff;padding: 30px;}
+.box-right-topright h2{font-size: 16px;margin-top:5px;margin-bottom: 10px}
+.box-right-topright table td{padding: 12px}
+.tb{height: 475px;background: #fff;margin-top: 20px;padding: 20px;}
+.tb h1{margin-bottom: 100px}
+@media screen and (max-width:730px){
+    #box .box-left{height: auto}
+}
+/*投资列表页*/
+.box-right-main{height: auto;background: #fff;border:1px solid #ddd;}
+.box-right-main h2{padding: 19px 20px;font-size: 18px;margin: 0px;border-bottom:1px solid #ddd;margin-bottom: 10px}
+.box-right-main .tablelist{padding: 0px 20px}
+.box-right-main .tablelist .table td{border-top: none}
+.box-right-main .tablelist .table td{color: #666}
+.box-right-main .tabletop{margin-bottom: 0px;border: 1px solid #ddd;border-bottom: none;}
+.box-right-main .tabletop td{line-height: 30px}
+.box-right-main .tabletop .btn{margin-right:5px;}
+.box-right-main .tablebox td{padding:15px;}
+.box-right-main .pagination{}
+.box-right-main .pagination li a,.pagination li span{color: #1fbba6}
+.box-right-main .bdlist{padding-left:10px;}
+.box-right-main label{font-size: 14px;font-weight: normal;margin-top: 5px}
+
+#url .uploadify{left:0}
+#urlfilelink .uploadify{left:0}
+#riskReveallink .uploadify{left:0}
+
+.llpage nav{text-align:right}
+.llpage nav span.gap{float:left;font-size:14px}
+.llpage nav span.count{ float:left; line-height:34px;}
+.llpage nav span.count b{color:#1fbba6}
+.llpage nav .now{background: #1fbba6;color:#fff!important}
+
+
+
+/*用户综合查询*/
+.pSearch{ float:right; margin:0}
+.pSearch li{ float:left; font-size:12px}
+.countMoney{ margin:0 20px; text-align:right; line-height:30px; font-size:14px; margin-bottom:6px}
+.serBox .searTit{ background-color:#f5f5f5; color:#666}
+.serBox h3{ font-size:16px}
+
+.pad0{ padding:8px 0 !important; line-height:34px !important}
+
+.listTab th{ background-color:#f5f5f5; text-align:center; font-weight:normal; color:#666}
+.jyTit{ font-size:16px; line-height:20px}
+.listTab td{ font-weight:normal; text-align:center}
+
+.row .inBox{ display:block; text-align:center; border-right:1px solid #f5f5f5}
+.row .inBox:last-child{ border:none}
+.row .inBox .in{ display:inline-block; padding:10px 0}
+.row .inBox .in p{ text-align:left}
+.row .inBox .in p.txt{ color:#666}
+.row .inBox .in p.first{ font-size:30px; font-family:'微软雅黑'; overflow:hidden}
+.row .inBox .in p.first img{margin-right:10px}
+.row .inBox .in p.first span{ font-size:16px}
+
+.rin{ padding:20px 0; border-bottom:1px solid #ddd; margin-bottom:15px}
+.row .pr15{ padding-right:15px}
+.tyTit{ display:block; overflow:hidden}
+.tyTit h4{ font-size:15px; color:#666; font-weight:normal; line-height:24px; float:left}
+.tyTit h3{ float:right;font-size:30px; font-family:'微软雅黑';}
+.tyTit h3 span{ font-size:16px}
+
+.h3Tit{ font-size:14px; font-weight:normal; margin-top:0; font-family:'微软雅黑';}
+
+.lastTit{ border-top:1px solid #ddd; margin-top:20px; padding-top:10px; margin-bottom:10px}

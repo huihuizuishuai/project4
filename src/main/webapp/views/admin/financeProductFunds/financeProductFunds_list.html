@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<#include '../common/base.html'>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="${base}/resources/sys/ying/iconfont.css">
+    <link rel="stylesheet" href="${base}/resources/sys/style/bootstrap.css">
+    <link rel="stylesheet" href="${base}/resources/sys/style/style.css">
+    <script type="text/javascript" src="${base}/resources/sys/js/jquery.js"></script>
+    <title>后台首页</title>
+</head>
+<body>
+<div class="box-right-main">
+    <h2><span class="glyphicon glyphicon-play" style="margin-right:5px"></span>私募/股权类</h2>
+
+    <div class="tablelist">
+        <form action="${base}/financeProductFunds/list" method="post" id="form1">
+            <table class="table tabletop">
+                <tr>
+                    <td style="width:110px;padding-left:30px">名称：</td>
+                    <td style="width:180px"><input type="text" class="form-control" name="name" placeholder="名称"></td>
+                    <td style="width:110px;padding-left:30px">状态：</td>
+                    <td style="width:180px">
+                        <select class="form-control" name="status">
+                            <option value="">全部</option>
+                            <option value="0">未发布</option>
+                            <option value="1">募集中</option>
+                            <option value="2">已结束</option>
+                        </select>
+                    </td>
+                    <td style="width:110px;padding-left:30px">类别：</td>
+                    <td style="width:180px">
+                        <select class="form-control" name="type">
+                            <option value="">全部</option>
+                            <option value="SIMU">私募类</option>
+                            <option value="GUQUAN">股权类</option>
+                        </select>
+                    </td>
+                    <td class="pull-right">
+                        <a class="btn btn-primary btn-sm" href="javascript:;"
+                           onclick="javascript:$('#form1').submit();">搜索</a>
+                        <a class="btn btn-primary btn-sm" href="${base}/financeProductFunds/addFinanceProductFundsPage">新增</a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <table class="table table-bordered tablebox">
+            <tr class="text-center" bgcolor="#f7f7f7">
+                <td>序号</td>
+                <td>ID</td>
+                <td>名称</td>
+                <td>类型</td>
+                <td>状态</td>
+                <td>年化收益</td>
+                <td>返佣比例</td>
+                <td>开始日期</td>
+                <td>结束日期</td>
+                <td>投资期限</td>
+                <td>起投金额</td>
+                <td>添加时间</td>
+                <td>操作</td>
+            </tr>
+        <#list pageInfo.list as s>
+            <tr class="text-center">
+                <td>${s_index+1}</td>
+                <td>${s.id!!}</td>
+                <td>${(s.name)!!}</td>
+                <td>${(s.type.desc)!!}</td>
+                <td>${(s.getStatusDesc())!!}</td>
+                <td>${(s.yearRate)!!}%</td>
+                <td>${(s.ratio)!!}</td>
+                <td>${(s.startDate?string('yyyy-MM-dd'))!!}</td>
+                <td>${(s.endDate?string('yyyy-MM-dd'))!!}</td>
+                <td>${(s.period)!!}<#if s.period??> 天</#if></td>
+                <td>${(s.floorAmount)!!}元</td>
+                <td>${(s.createDate?string('yyyy-MM-dd'))!!}</td>
+                <td>
+                    <a class="btn btn-primary btn-sm"
+                       href="${base}/financeProductFunds/financeProductSubscribe?financeProductFundsId=${s.id}">未签署&nbsp;<strong style="color: red;">${(s.unsigned)!!}</strong>&nbsp;人</a>
+                    <a class="btn btn-primary btn-sm"
+                       href="${base}/financeProductFunds/editFinanceProductFundsPage/${s.id}">编辑/查看</a>
+                </td>
+            </tr>
+        </#list>
+        </table>
+    <#include "../common/paginate.html" />
+    <@paginate currentPage=(pageInfo.pageNum)!0 totalPage=(pageInfo.pages)!0 actionUrl="${base}/financeProductFunds/list"/>
+    </div>
+
+    <!-- 内容结束 -->
+</div>
+<!-- 容器结束 -->
+</body>
+</html>

@@ -1,0 +1,63 @@
+body{height: 100%;font-family: "Microsoft YaHei","微软雅黑","simsun","Helvetica Neue", Arial, Helvetica, sans-serif;
+max-width: 1242px;min-width: 320px;margin: 0 auto;}
+.bg{position: relative;}
+.bg img{max-width: 100%;}
+.add{z-index: 1;position: absolute;top: 11%;left: 42%;font-weight: 500;}
+.add a{display:block;font-size: 4vw;color: #e02f00;text-decoration: none;filter:alpha(opacity=0);-moz-opacity:0.00;opacity:0.00;}
+.bd{z-index: 1;position: absolute;top: 41%;width: 100%;}
+.bd .inpt{padding: 0 5vw;width: 100%;line-height: 100%;}
+.bd input{height: 8vw;border: 1px solid #fff;margin-bottom: 3vw;border-radius: 3px;color: #666666;font-size: 3vw;padding-left: 2vw;}
+.bd button{background: #fff;color: #5d4dd5;border: 1px solid #fff;border-radius: 3px;height: 8vw;font-size: 3vw}
+.bd a{color: #fff;font-size: 3vw;text-decoration: none;font-family: "黑体";}
+.bd input.send{width: 100%;border: 1px solid #fdd101;background: #fdd101;color: #fff;margin-top: 4vw;}
+.chk_1 { 
+  display: none; 
+} 
+.errorspan{margin-bottom:3vw}
+.errorInfo{color:#fff;font-size:3vw;}
+.bd input.yzwcode{width: 66%;margin-right: 2%;float: left;}
+.bd input.mobilcode{width: 66%;margin-right: 2%;float: left;}
+.bd input.passstyle{width:100%}
+.bd input.mobil{width:100%}
+ 
+.chk_1 + label { 
+    background-color: #FFF; 
+    border: 1px solid #C1CACA; 
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05); 
+    padding: 9px; 
+    border-radius: 5px; 
+    display: inline-block; 
+    position: relative; 
+    margin-right:5px; 
+} 
+.chk_1 + label:active { 
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1); 
+} 
+ 
+.chk_1:checked + label { 
+    background-color: #fff; 
+    border: 1px solid #92A1AC; 
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.1); 
+    color: #243441; 
+} 
+ 
+.chk_1:checked + label:after { 
+    content: '\2714'; //勾选符号 
+    position: absolute; 
+    top: 0px; 
+    left: 0px; 
+    color: #f03a09; 
+    width: 100%; 
+    text-align: center; 
+    font-size: 1.4em; 
+    padding: 1px 0 0 0; 
+    vertical-align: text-top; 
+} 
+
+button.codebtn{width: 31%;color: #fff;background: #5d4dd5;border: 1px solid #5d4dd5;float: right}
+.bd button.grey{background:#797880;border:1px solid #797880}
+
+/*新加*/
+.down{z-index: 1;position:absolute;top:73%;width: 100%;padding-left: 16%;}
+.down a{display: block;margin-bottom: 3vw;width: 85%;}
+.down a img{max-width: 100%;}
