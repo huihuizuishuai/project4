@@ -49,11 +49,7 @@
 						<td style="width: 180px"><input type="text" id="names"
 							name="names" class="form-control" placeholder="姓名"
 							value="${members.names}"></td>
-	<td >					
-	<div>            
-		<span>开始时间 <input name="control_date" type="text" id="control_date" size="10" maxlength="10" onClick="new Calendar().show(this);" readonly="readonly" value="${members.createDate}" plaplaceholder="姓名" /></span>
 	
-	</div></td>
 						
 								<td class="pull-right" style="padding-right: 10px"><button
 										type="submit" class="btn btn-primary btn-sm">查询</button></td>

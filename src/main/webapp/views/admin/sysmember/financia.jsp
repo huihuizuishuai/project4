@@ -124,8 +124,12 @@
 		document.forms['form1'].action = "/winplus/Li/toupdate?memberId="+id;
 	    document.forms['form1'].submit();  
 	}
-	document.getElementById("status").value=${status};
+
 		</script> 
+		
+		<script type="text/javascript">
+		document.getElementById("status").value=${status};
+		</script>
 	</div>
 <!-- 容器结束 -->
 </body>

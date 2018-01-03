@@ -62,7 +62,7 @@ public class MembersServiceImpl implements MembersService{
 	PurchaseRepository purchaseRepository;
 	@Autowired
 	SubjectPurchaseRepository subjectPurchaseRepository;
-	
+
 	
 	/***
 	 * 分页模糊查询账号管理
@@ -286,9 +286,9 @@ public class MembersServiceImpl implements MembersService{
 						Path serialpath=root.get("serialNumber");
 						plist.add(builder.like(serialpath, "%"+spRecord.getSerialNumber()+"%"));
 					}
-					else if (spRecord.getDelflag()!=null&&!spRecord.getDelflag().equals("")) {
-						Path delflagpath=root.get("delflag");
-						plist.add(builder.like(delflagpath, "%"+spRecord.getDelflag()+"%"));
+					else if (spRecord.getStatus()!=null&&!spRecord.getStatus().equals("")) {
+						Path statuspath=root.get("status");
+						plist.add(builder.like(statuspath, "%"+spRecord.getStatus()+"%"));
 					}
 					else if (spRecord.getIspayment()!=null&&!spRecord.getIspayment().equals("")) {
 						Path ispaymentpath=root.get("ispayment");
@@ -302,6 +302,18 @@ public class MembersServiceImpl implements MembersService{
 		};
 		
 		return subjectPurchaseRepository.findAll(specification,pageable);
+	}
+
+	@Override
+	public SubjectPurchaseRecord findSubjectPurchaseRecordById(Integer sprId) {
+		
+		return purchaseRepository.findSubjectPurchaseRecordBysprId(sprId);
+	}
+
+	@Override
+	public Subject findSubject(Integer subjectId) {
+		
+		return subjectRepository.findOne(subjectId);
 	}
 
 

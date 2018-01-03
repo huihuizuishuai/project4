@@ -60,4 +60,9 @@ public interface MembersService {
 	
 	//体现管理
 	public Page<SubjectPurchaseRecord> findspr(Integer page,Integer size,final SubjectPurchaseRecord spRecord);
+	
+	//根据id查询这条数据的购买记录
+	SubjectPurchaseRecord findSubjectPurchaseRecordById(Integer sprId);
+	
+	public Subject findSubject(Integer subjectId);
 }

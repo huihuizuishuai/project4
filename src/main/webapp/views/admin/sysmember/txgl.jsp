@@ -33,24 +33,19 @@
                         <table class="table tabletop">
                         <tr>
                         <td style="width:110px;padding-left:30px">流水号：</td>
-                        <td style="width:180px"><input type="text" name="serialNumber" class="form-control" placeholder="流水号" value="${spRecord.serialNumber}" id="serialNumber"></td>
+                        <td style="width:180px"><input type="text" name="serialNumber" class="form-control" placeholder="流水号" value="${spRecord.serialNumber}" id="serialNumber" ></td>
                          <td style="width:80px">状态：</td>
-	                    <td style="width:180px"><select name="status" class="form-control" style="width:130px;height:32px" id="status">
+	                    <td style="width:180px"><select name="status" class="form-control" style="width:130px;height:32px" id="status" >
 	                   		<option value="">全部</option>
-	                        <option value="0">待审核</option>
-	                        <option value="1">已付款</option>
-	                        <option value="2">打款中</option>
-	                        <option value="3">打款失败</option>
-	                       	<option value="4">已解冻</option>
+	                        <option value="0">未到期</option>
+	                        <option value="1">审核</option>
+	                        <option value="2">解冻</option>
+	                        <option value="3">打款</option>
+	                       	<option value="4">已付款</option>
 	                    </select></td>
-	                    <td style="width:80px">是否还款</td>
-	                    <td style="width:180px"><select name="delflag" class="form-control" style="width:130px;height:32px" id="delflag">
-	                   		<option value="">全部</option>
-	                        <option value="0">否</option>
-	                        <option value="1">是</option>
-	                    </select></td>
+	                    
                          <td class="pull-right" style="padding-right:30px">
-                         <button type="submit" class="btn btn-primary btn-sm">查询</button></td>
+                         <button type="submit" id ="cx" class="btn btn-primary btn-sm">查询</button></td>
 	                    <td><button type="button" class="btn btn-primary btn-sm" onclick="$('#form1').find(':input').not(':button, :submit, :reset').val('').removeAttr('checked').removeAttr('selected');">重置</button></td>
 	                 	 </tr>    
                         </table>
@@ -61,12 +56,11 @@
                           <td>流水号</td>
                           <td>购买金额</td>
                           <td>状态</td>
-                          <td>提现时间</td>
+                          <td>创建时间</td>
                           <td>修改时间</td>
                           <td>结算利息</td>
                           <td>是否还款</td>
                           <td>最后计息日</td>
-                          <td>账号详细</td>
                           <td>操作</td>
                           </tr>
                           <c:forEach items="${spRecordpage.getContent()}" var="spRecordpage" varStatus="s">
@@ -75,11 +69,11 @@
                             <td>${spRecordpage.serialNumber}</td>
                             <td>${spRecordpage.amount}</td>
                             <td>
-                            	<c:if test="${spRecordpage.delflag==0}"><font style="color: orange;">待审核</font></c:if>
-                            	<c:if test="${spRecordpage.delflag==1}"><font style="color: green;">已付款</font></c:if>
-                            	<c:if test="${spRecordpage.delflag==2}"><font style="color: blue;">打款中</font></c:if>
-                            	<c:if test="${spRecordpage.delflag==3}"><font style="color: red;">打款失败</font></c:if>
-                            	<c:if test="${spRecordpage.delflag==4}"><font style="color: green;">已解冻</font></c:if>
+                            	<c:if test="${spRecordpage.status==0}"><font style="color: green;">未到期</font></c:if>
+                            	<c:if test="${spRecordpage.status==1}"><font style="color: orange;">审核</font></c:if>
+                            	<c:if test="${spRecordpage.status==2}"><font style="color: red;">解冻</font></c:if>
+                            	<c:if test="${spRecordpage.status==3}"><font style="color: blue;">打款</font></c:if>
+                            	<c:if test="${spRecordpage.status==4}"><font style="color: green;">已付款</font></c:if>
                             </td>
                             <td>${spRecordpage.createDate}</td>
                             <td>${spRecordpage.updateDate}</td>
@@ -89,19 +83,19 @@
                             	<c:if test="${spRecordpage.ispayment==1}">是</c:if>
                             </td>
                             <td>${spRecordpage.lastProfitDay}</td>
-                            <td><a class="btn btn-primary btn-sm" href="<%=basePath%>">账号详细</a></td>
                             <td>
-                            	<c:if test="${spRecordpage.delflag==0}">
-                            		<a class="btn btn-primary btn-sm" href="<%=basePath%>Li/updates1/${spRecordpage.serialNumber}" onclick="return confirm('你确定要审核通过吗')">审核</a>
+                            	<c:if test="${spRecordpage.status==1}">
+                            		<a class="btn btn-primary btn-sm" onclick="javascript:tx(${spRecordpage.sprId},'Auditing');">审核</a>
                             	</c:if>
-                            	<c:if test="${spRecordpage.delflag==2}">
-                            		<a class="btn btn-primary btn-sm" href="<%=basePath%>Li/updates2/${spRecordpage.serialNumber}" onclick="return confirm('你确定要贝付打款吗')">贝付打款</a>
+                            	<c:if test="${spRecordpage.status==3}">
+                            		<a class="btn btn-primary btn-sm"  href="javascript:tx(${spRecordpage.sprId},'pay');">贝付打款</a>
                             	</c:if>
-                            	<c:if test="${spRecordpage.delflag==3}">
-                            		<a class="btn btn-primary btn-sm" href="<%=basePath%>Li/updates3/${spRecordpage.serialNumber}" onclick="return confirm('你确定要解冻吗')">解冻</a>
+                            	<c:if test="${spRecordpage.status==2}">
+                            		<a class="btn btn-primary btn-sm"  href="javascript:tx(${spRecordpage.sprId},'relieve');">解冻</a>
                             	</c:if>
-                            	<c:if test="${spRecordpage.delflag==1}"><font style="color: green;">已付款</font></c:if>
-                            	<c:if test="${spRecordpage.delflag==4}"><font style="color: green;">已解冻</font></c:if>
+                            	<c:if test="${spRecordpage.status==0}">未到期</c:if>
+                            	<c:if test="${spRecordpage.status==4}">已付款</c:if>
+                            	
                             </td>
                           	</tr>
                           	</c:forEach>
@@ -127,16 +121,47 @@
 
 	</div>
 
-
 <script type="text/javascript">
-function pagerequest(page) {
-	document.getElementById("page").value = page;
-	document.form1.submit();
-}
-document.getElementById("status").value=${status};
-document.getElementById("delflag").value=${delflag};
-
+	function pagerequest(page) {
+		document.getElementById("page").value = page;
+		document.form1.submit();
+	}
+</script>	
+	
+<script type="text/javascript">
+	function select(){
+		var status=$('#status').val();
+		document.form1.submit();
+	}
 </script>
+<script type="text/javascript">
+	function tx(sprId,flag){
+		$.ajax({
+			 type : "POST", // 用POST方式传输
+			 url:'<%=basePath%>Li/aaa',
+			 data:"sprId="+sprId+"&flag="+flag,
+		
+			 success:function(data){
+				 if(data.code ="success"){
+					 alert("成功");
+					 location.reload(); 
+				 }else{ 
+					 
+					 alert("失败");
+					
+				 }
+			 }
+		 });
+		
+		
+		
+	}
+</script> 
+<script type="text/javascript">
+document.getElementById("status").value=${status};
+</script>
+
+
 <!-- 容器结束 -->
 </body>
 </html>

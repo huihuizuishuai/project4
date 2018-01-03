@@ -24,14 +24,14 @@
 
                       <div class="tablelist">
                         <table class="table tabletop">
-                        <c:forEach items="${likesp}" var="likesp">
+                      
                         <tr>
-                        <td style="padding-left:30px">标的名称：${likesp[11]} 
-                        				&nbsp; &nbsp; &nbsp; &nbsp;  标的期限：${likesp[12]}天
-                        				&nbsp; &nbsp; &nbsp; &nbsp;  年化收益率：${likesp[13]}%</td>
+                        <td style="padding-left:30px">  标的名称：p2p 
+                        				&nbsp; &nbsp; &nbsp; &nbsp;  标的期限：5天
+                        				&nbsp; &nbsp; &nbsp; &nbsp;  年化收益率：7%</td>
                         </tr>     
-                        </c:forEach>
-                        </table>
+                        
+                       </table>
                         
                         <form action="<%=basePath %>Li/updatesp" id="formsp" name="formsp" method="post"></form>
                         
@@ -70,8 +70,8 @@
                         <c:if test="${likesp[10]==1}"><font color="blue">已还款</font></c:if>
                         </td>
                         <td>
-                        <c:if test="${likesp[10]==0}"><a href="javascript:jump(${likesp[0]});" class="btn btn-primary btn-sm">立即还款</a></c:if>
                         <c:if test="${likesp[10]==1}"><a href="" class="btn btn-primary btn-sm" style="background-color: #8393A1;">已还款</a></c:if>
+                        <c:if test="${likesp[10]==0}"><a href="javascript:jump(${likesp[0]});" class="btn btn-primary btn-sm">立即还款</a></c:if>
                         	
                         	
                         </td>

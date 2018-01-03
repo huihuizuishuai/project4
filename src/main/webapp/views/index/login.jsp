@@ -116,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="lLabel">手机号</div>
 						<div class="lInput">
 							<img src="<%=basePath%>/resources/web/images/userIcon.png" />
-							<input type="text" value="13871781032" placeholder="手机号" id="phone" name="phone"
+							<input type="text" placeholder="手机号" id="phone" name="phone"
 								class="form-control phone" /><span class="errorInfo">用户名不能为空</span>
 						</div>
 					</div>
@@ -124,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="lLabel">登录密码</div>
 						<div class="lInput">
 							<img src="<%=basePath%>/resources/web/images/passwordIcon.png" />
-							<input type="password" value="a123456" placeholder="密码" id="password" name="password"
+							<input type="password" placeholder="密码" id="password" name="password"
 								class="form-control password" /><span class="errorInfo"></span>
 						</div>
 					</div>

@@ -23,6 +23,7 @@ public class SubjectPurchaseRecord {
 	private Integer payInterestTimes;//  number,
 	private Integer lastProfitDay;//  number,-- '最后计息日',
 	private String bonusInfo;//  varchar2(200) -- '红包金额信息（app端实际投资额度+红包额度）',
+	private String status;// varchar2(25), -- '状态'
 
 	@Id
 	@SequenceGenerator(name="seq_subject_purchase_record",sequenceName="seq_subject_purchase_record",allocationSize=1)
@@ -110,6 +111,12 @@ public class SubjectPurchaseRecord {
 	}
 	public void setBonusInfo(String bonusInfo) {
 		this.bonusInfo = bonusInfo;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

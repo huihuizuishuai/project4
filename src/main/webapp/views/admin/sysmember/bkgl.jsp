@@ -31,8 +31,6 @@
                         <tr>
                         <td style="width:130px;padding-left:30px">手机号：</td>
                         <td style="width:180px"><input type="text" class="form-control" name="mobilePhone" placeholder="手机号" value="${members.mobilePhone}"></td>
-                        <td style="width:130px;padding-left:30px">绑卡姓名：</td>
-                        <td style="width:180px"><input type="text" class="form-control" name="memberName" placeholder="绑卡姓名" value="${members.memberName}"></td>
                         <td style="width:130px;padding-left:30px">绑卡卡号：</td>
                         <td style="width:180px"><input type="text" class="form-control" name="cardNo" placeholder="绑卡卡号" value="${memberBankcards.cardNo }"></td>
                         

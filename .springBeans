@@ -9,7 +9,6 @@
 	<configs>
 		<config>src/main/resources/spring-mvc.xml</config>
 		<config>src/main/resources/spring-config.xml</config>
-		<config>src/main/resources/spring-task.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

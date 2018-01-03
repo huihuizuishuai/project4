@@ -101,7 +101,7 @@ public class MembersRepositoryImpl implements MembersDao{
 	@Override
 	public List<Object[]> likesb(Integer subjectid) {
 		String sql="select distinct sp.member_id,sp.serial_number,m.mobile_phone,member_name,m.member_identity,sp.amount,sp.interest,sp.create_date,sp.ispayment,s.subject_name,s.period,s.year_rate from MEMBERS m,SUBJECT_BBIN_PURCHASE_RECORD sp, SUBJECT s where m.member_id in (select member_id from SUBJECT_BBIN_PURCHASE_RECORD sb where subject_id  in ("
-      +" select subject_id  from  SUBJECT s where subject_id =3))";
+      +" select subject_id  from  SUBJECT s where subject_id ="+subjectid+"))";
 
 		List<Object[]> likesb=entityManager.createNativeQuery(sql).getResultList();
 		
@@ -114,7 +114,7 @@ public class MembersRepositoryImpl implements MembersDao{
 	@Override
 	public List<Object[]> likesp(Integer subjectid, Integer memberid) {
 		String sql="select distinct sp.member_id,sp.serial_number,m.mobile_phone,member_name,m.member_identity,sp.amount,sp.interest,(sp.amount+sp.interest),sp.create_date,sp.update_date,sp.ispayment,s.subject_name,s.period,s.year_rate from MEMBERS m,SUBJECT_BBIN_PURCHASE_RECORD sp, SUBJECT s where m.member_id in (select member_id from SUBJECT_BBIN_PURCHASE_RECORD sb where subject_id  in ("
-      +" select subject_id  from  SUBJECT s where subject_id =3))";
+      +" select subject_id  from  SUBJECT s where subject_id ="+subjectid+"))";
 		List<Object[]> likesp=entityManager.createNativeQuery(sql).getResultList();
 		return likesp;
 	}

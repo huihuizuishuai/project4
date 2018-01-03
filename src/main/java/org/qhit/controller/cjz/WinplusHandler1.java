@@ -51,7 +51,7 @@ public class WinplusHandler1 {
 		if (page==null) {
 			page=1;
 		}
-		Integer size=2;
+		Integer size=1;
 		//当前页数：userspage.getNumber()
 		//总页数：userspage.getTotalPages()
 		//当前页的结果集：userspage.getContent()
@@ -94,19 +94,7 @@ public class WinplusHandler1 {
 		winservice.addRole(userrole);
 		return "redirect:rolelist";
 	}
-//	@RequestMapping("checkUserExsit")
-//	public @ResponseBody Object findUserCount(String username){
-//		Integer counts=usersRepository1.getUserName(username);
-//		Map map = new HashMap();
-//		if (counts>=1) {
-//			map.put("valid", false);
-//		}else{
-//			map.put("valid", true);
-//		}
-//		return map;
-//		
-//	}
-	
+
 	@RequestMapping("permission")
 	public String permission(Map<String, Object> map) {
 		return "admin/system/permission";

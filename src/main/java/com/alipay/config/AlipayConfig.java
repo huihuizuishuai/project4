@@ -27,10 +27,10 @@ public class AlipayConfig {
     public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqM3zFF4C04Pf7SU2MCIspdLqE3HIJkRAufl7iFvFRAqXYfKEZNEAHQ057Fw4b09szmO8I8VaY51M3z07UcT0nemkN7vr7PstN9Tch6OmaIKjhUrQH8UG8UsWvycpIoXwebCbMGxQX++CzbQ1SrB1jTVz4P1lRyIe6T05/60YKn4nscY/9TuOEjY+fHDQeH/aMBdgVhCOnNqxEixfA+xUBShz9RvzppjzCK362lcRIwOLzF45Mal2tqoqZkDe1bbksW7Fwg0Zq1Yd9LNic48lpJaJwMz9nHK5lx0tOIWtNJDJRBUoioQUeO+9A48TlBztzN86aNRgLwIe0ulUBacmWwIDAQAB";
 
 	// 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-	public static String notify_url = "http://32122100.ngrok.io/winplus/views/notify_url.jsp";
+	public static String notify_url = "http://bfe01ea0.ngrok.io/winplus/views/notify_url.jsp";
 
 	// 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-	public static String return_url = "http://32122100.ngrok.io/winplus/Main/returnUrl";
+	public static String return_url = "http://bfe01ea0.ngrok.io/winplus/Main/returnUrl";
 
 	// 签名方式
 	public static String sign_type = "RSA2";

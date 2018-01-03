@@ -52,8 +52,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        <li><a href="javascript:;" class="titlea"><span class="iconfont">&#xe609;</span>理财产品</a></li>
 		               <ul class="list-group">
 			               <li class="list-group-item"><a href="<%=basePath %>XIAO/main" target="rightkj">固收类</a></li>
-			               <li class="list-group-item"><a href="<%=basePath %>/views/financeProductFunds/list" target="rightkj">私募/股权类</a></li>
-			               <li class="list-group-item"><a href="<%=basePath %>/overseaSys/overseaConfig" target="rightkj">海外配置</a></li>
+			               <!--  <li class="list-group-item"><a href="<%=basePath %>/views/financeProductFunds/list" target="rightkj">私募/股权类</a></li>
+			               <li class="list-group-item"><a href="<%=basePath %>/overseaSys/overseaConfig" target="rightkj">海外配置</a></li>-->
 		               </ul>
  					  <li><a href="javascript:;" class="titlea"><span class="iconfont">&#xe60c;</span>钱包管理</a></li>
               		  <ul class="list-group">
@@ -74,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			               <li class="list-group-item"><a href="<%=basePath %>Li/subject" target="rightkj">付息计划</a></li>
 			               <li class="list-group-item"><a href="<%=basePath %>Li/czpage" target="rightkj">充值管理</a></li>
 			               <li class="list-group-item"><a href="<%=basePath %>Li/spr" target="rightkj">提现管理</a></li>
-			               <li class="list-group-item"><a href="<%=basePath %>/sysmember/inviteRewards" target="rightkj">邀请奖励</a></li>
+			              <!--   <li class="list-group-item"><a href="<%=basePath %>/sysmember/inviteRewards" target="rightkj">邀请奖励</a></li>-->
 		              </ul>
 		             
 		              <li><a href="javascript:;" class="titlea"><span class="iconfont">&#xe60a;</span>盈+统计</a></li>
@@ -92,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		              <ul class="list-group">
 			               <li class="list-group-item"><a href="<%=basePath %>CJZ/userlist" target="rightkj">账户设置</a></li>
 			               <li class="list-group-item"><a href="<%=basePath %>CJZ/rolelist	" target="rightkj">角色设置</a></li>
-			               <li class="list-group-item"><a href="<%=basePath %>CJZ/passwd/${username }" target="rightkj">密码设置</a></li>
+<%-- 			               <li class="list-group-item"><a href="<%=basePath %>CJZ/passwd/${username }" target="rightkj">密码设置</a></li> --%>
                       </ul>
 		               </ul>
                 </div>

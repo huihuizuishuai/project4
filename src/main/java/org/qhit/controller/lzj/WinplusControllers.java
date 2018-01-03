@@ -1,6 +1,8 @@
 package org.qhit.controller.lzj;
 
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.qhit.dao.lzj.BankcardsRepository;
 import org.qhit.dao.lzj.DepositRepository;
+import org.qhit.dao.lzj.MemberAccountRepository;
 import org.qhit.dao.lzj.MembersRepository;
 import org.qhit.dao.lzj.PurchaseRepository;
 import org.qhit.dao.lzj.SubjectBbinRepository;
@@ -28,6 +31,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
@@ -48,6 +52,8 @@ public class WinplusControllers {
 	DepositRepository depositRepository;
 	@Autowired
 	SubjectPurchaseRepository subjectPurchaseRepository;
+	@Autowired
+	MemberAccountRepository memberAccountRepository;
 	/**
 	 * 账号管理分页加模糊查询
 	 * @param map
@@ -61,7 +67,7 @@ public String findmembers(Map<String, Object> map,Integer page,Members members){
 		page=1;	
 	}
 
-	Integer size=1;
+	Integer size=3;
 	//当前页数：memberspage.getNumber()
 	//总页数：memberspage.getTotalPages()
 	//当前页的结果集：memberspage.getContent()
@@ -153,7 +159,7 @@ public String findmembers(Map<String, Object> map,Integer page,Members members){
 	 * @param memberId
 	 * @return
 	 */
-	@RequestMapping("updatecard")
+	@RequestMapping("/updatecard")
 	public String updatecard(String memberId){
 		System.out.println("id:"+memberId);
 		bankcardsRepository.updatecard(Integer.valueOf(memberId));
@@ -298,9 +304,7 @@ public String findmembers(Map<String, Object> map,Integer page,Members members){
 	@RequestMapping("spr")
 	public String findspr(Map<String, Object> map,Integer page,final SubjectPurchaseRecord spRecord,HttpServletRequest request){
 		String status=request.getParameter("status");
-		String delflag=request.getParameter("delflag");
 		request.setAttribute("status", status);
-		request.setAttribute("delflag", delflag);
 		if (page==null) {
 			page=1;	
 		}
@@ -320,39 +324,68 @@ public String findmembers(Map<String, Object> map,Integer page,Members members){
 	 * 提现审核
 	 * @return
 	 */
-	@RequestMapping("updates1/{serialNumber}")
-	public String updates1(@PathVariable("serialNumber") String serialNumber){
-		if (serialNumber!=null) {
-			subjectPurchaseRepository.updates1(serialNumber);
+	@RequestMapping("aaa")
+	public @ResponseBody Map tixian(HttpServletRequest request){
+		String sprId=request.getParameter("sprId");
+		String flag=request.getParameter("flag");
+		
+		Map<String, String> map=new HashMap<String,String>();
+		String code="";
+		//根据ID查询当前的这条购买记录
+		SubjectPurchaseRecord spr=membersService.findSubjectPurchaseRecordById(Integer.valueOf(sprId));
+		float amount=spr.getAmount();
+		Float lx=null;
+		//审核
+		if (flag.equals("Auditing")) {
+			Integer memberId=spr.getMemberId();
+			//计算收益
+			Subject subject=membersService.findSubject(spr.getSubjectId());
+			Integer day=this.getDay(spr.getCreateDate());
+			lx=spr.getAmount()*subject.getYearRate()/100/365*day;
+			//修改利息
+			purchaseRepository.UpdateInterestById(lx,Integer.valueOf(sprId));
+			//修改累计收益
+			memberAccountRepository.updateToatal(lx, memberId);
+			//然后往MEMBER_PROFIT_RECORD中保存一条记录
+			
+			 
+			//审核后修改状态
+			
+			
 		}
-		return "redirect:/Li/spr";
+		//解冻
+		if(flag.equals("relieve")){
+			Integer memberId=spr.getMemberId();
+			//修改解冻金额
+			purchaseRepository.updateStatus(Integer.valueOf(sprId));
+			//修改投资金额
+			memberAccountRepository.updateInvestAmount(memberId);
+			//修改可用余额
+			memberAccountRepository.updateUseAble(memberId);
+			//修改冻结金额
+			memberAccountRepository.updateImusealeBalance(memberId);
+			
+		}
+		//贝付打款
+		if(flag.equals("pay")){
+			Integer memberId=spr.getMemberId();
+			Float useable_balance =amount;
+			//打款给可用余额
+			memberAccountRepository.updateUseable(useable_balance, memberId);	
+			//打款修改状态
+			
+		}
+		code="success";
+		map.put("code", code);
+		return map;
 	}
 
-	/**
-	 * 
-	 * 提现贝付打款
-	 * @return
-	 */
-	@RequestMapping("updates2/{serialNumber}")
-	public String updates2(@PathVariable("serialNumber") String serialNumber){
-		if (serialNumber!=null) {
-			subjectPurchaseRepository.updates2(serialNumber);
-		}
-		return "redirect:/Li/spr";
-	}
-	
-	/**
-	 * 
-	 * 提现解冻
-	 * @return
-	 */
-	@RequestMapping("updates3/{serialNumber}")
-	public String updates3(@PathVariable("serialNumber") String serialNumber){
-		if (serialNumber!=null) {
-			subjectPurchaseRepository.updates3(serialNumber);
-		}
-		return "redirect:/Li/spr";
-	}
+	private Integer getDay(Date cdate){
+		Long day = new Date().getTime();
+		Long cday = cdate.getTime();
+		Long d = (day-cday)/(1000*60*60*24);
+		return Integer.parseInt(d.toString());
 
+	}
 
 }

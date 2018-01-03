@@ -56,7 +56,7 @@
 <!--  </style> -->
   </head>
   <body>
-	   <form name="roleForm" method="post" action="" class="roleForm">
+	   <form name="roleForm" method="post" action="rolelist" class="roleForm">
 	   <input type="hidden" name="roleId" value="1"/>
 		   	<table class="table">
 		      <tr style="background:#f5f5f5">
@@ -135,6 +135,7 @@ $(function(){
 				rulePowerList.each(function(k,e) {
 					$(e).prop("checked",tsChk);
 				});
+				1
 				event.stopPropagation();
 		});
 });

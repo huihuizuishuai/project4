@@ -46,8 +46,8 @@ public class WinplusHandler {
 	public Map<String,Object> checkedSms(HttpServletRequest request,HttpSession session)throws Exception {
 		Map<String,Object> rMap = new HashMap<>();
 
-		String mobilePhone = request.getParameter("mobilePhone");
-		Integer rand = SendMsg_webchinese.checkedSms(mobilePhone);
+		String mobilePhone =request.getParameter("mobilePhone");
+		Integer rand =1234;// SendMsg_webchinese.checkedSms(mobilePhone);
 		//使用时调用
 		rMap.put("rand", rand);
 		session.setAttribute("rand", rand);

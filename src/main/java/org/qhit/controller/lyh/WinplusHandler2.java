@@ -91,6 +91,7 @@ public class WinplusHandler2 {
 		Integer rand = SendMsg_webchinese.checkedSms(mobilePhone);
 		//使用时调用
 //		rMap.put("rand", rand);
+		System.out.println("rand:"+rand);
 		session.setAttribute("rands", rand);
 		return rMap;
 	}

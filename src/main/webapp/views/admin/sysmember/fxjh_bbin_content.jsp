@@ -31,8 +31,8 @@
                         
                         <table class="table table-bordered tablebox">
                         	
-                       	 <tr><c:forEach items="${likesb}" var="likesb">
-                        	<td style="padding-left:30px">标的名称：${likesb[9]} &nbsp; &nbsp; &nbsp; &nbsp;  标的期限：${likesb[10]}天&nbsp; &nbsp; &nbsp; &nbsp;  年化收益率：${likesb[11]}%</td>
+                       	 <tr>	<c:forEach items="${likesb}" var="likesb">
+                          <td style="padding-left:30px">标的名称：p2p &nbsp; &nbsp; &nbsp; &nbsp;  标的期限：7天&nbsp; &nbsp; &nbsp; &nbsp;  年化收益率：5%</td>
                         	</c:forEach> 
                        	 </tr>  
                        	 	  
@@ -49,26 +49,22 @@
                           <td>操作</td>
                           </tr>
                           
-                  <c:forEach items="${likesb}" var="likesb" varStatus="s">
                     <tr class="text-center">
-                        <td>${s.count}</td>
-                        <td>${likesb[1]}</td>
-                        <td>${likesb[2]}</td>
-                        <td>${likesb[3]}</td>
-                        <td>${likesb[4]}</td>
-                        <td><span style="color: blue;">${likesb[5]}</span>元</td>
-                        <td><span style="color: red;">${likesb[6]}</span>元</td>
-                        <td>${likesb[7]}</td>
+                        <td>1</td>
+                        <td>201601220533418626</td>
+                        <td>13871196322</td>
+                        <td>小你鱼</td>
+                        <td>420621199812255433</td>
+                        <td><span style="color: blue;">1000</span>元</td>
+                        <td><span style="color: red;">0.325</span>元</td>
+                        <td>2016-01-02：10:03</td>
                         <td>
-                        <c:if test="${likesb[8]==0}"><span style="color: red;">未还款</span></c:if>
-                        <c:if test="${likesb[8]==1}"><span style="color: blue;">已还款</span></c:if>
+                        <span style="color: blue;">已还款</span>
                         </td>
                         <td>
-                        	<c:if test="${likesb[8]==0}"><a href="javascript:jump(${likesb[0]});" class="btn btn-primary btn-sm">立即还款</a></c:if>
-                        	<c:if test="${likesb[8]==1}"><a href="javascript:" class="btn btn-primary btn-sm" style="background-color: #8393A1;">已还款</a></c:if>
+                        <a href="javascript:" class="btn btn-primary btn-sm" style="background-color: #8393A1;">已还款</a>
                         </td>
                     </tr>
-                    </c:forEach> 
             </table>
          </div>
 

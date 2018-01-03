@@ -91,7 +91,7 @@
                         </td>
                         <td>
                         	<c:if test="${subjectpage.experStatus==1}">
-                        	<a href="<%=basePath %>Li/likesb?subjectId=${subjectpage.subjectId}" class="btn btn-primary btn-sm">体验金付息</a><a href="<%=basePath %>Li/likesp?subjectId=${subjectpage.subjectId}" class="btn btn-primary btn-sm">付息列表</a>	
+                        	<a href="<%=basePath %>/views/admin/sysmember/fxjh_bbin_content.jsp" class="btn btn-primary btn-sm">体验金付息</a><a href="<%=basePath %>Li/likesp?subjectId=${subjectpage.subjectId}" class="btn btn-primary btn-sm">付息列表</a>	
 							</c:if>
                           <c:if test="${subjectpage.experStatus==0}">
 							<a href="<%=basePath %>Li/likesp?subjectId=${subjectpage.subjectId}" class="btn btn-primary btn-sm">付息列表</a>	
@@ -126,7 +126,6 @@
 		document.subjectform.submit();
 	}
     document.getElementById("subjectType").value=${subjectType};
-    document.getElementById("status").value=${status};
     </script>
     </body>
 </html>
